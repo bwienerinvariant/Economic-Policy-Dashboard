@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>EP · Client Government Meetings · 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --crimson: #981B1E; --crimson-light: #B82529;
+    --navy: #1B2A4A; --navy-mid: #2E4057;
+    --blue-light: #D6E4F0; --cream: #F8F5F0;
+    --r-bg: #FEF0F0; --r-text: #8B1A1A;
+    --d-bg: #EEF3FC; --d-text: #1A3F7A;
+    --a-bg: #EFF3EC; --a-text: #2D5A27;
+    --h-bg: #FDF6EE; --h-text: #7A4010;
+    --s-bg: #F0EEF8; --s-text: #3D2D7A;
+    --border: #E4DDD6; --text: #1B2A4A; --muted: #6B7A8D;
+    --bg: #FAFAF8; --surface: #FFFFFF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); font-size: 14px; }
+  .header { background: var(--navy); padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; border-bottom: 3px solid var(--crimson); }
+  .header-title { font-size: 15px; font-weight: 600; color: #fff; letter-spacing: 0.01em; }
+  .header-sub { font-size: 11px; color: rgba(255,255,255,0.5); font-family: 'DM Mono', monospace; margin-top: 2px; }
+  .sync-btn { background: var(--crimson); color: #fff; border: none; padding: 8px 16px; border-radius: 6px; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; cursor: pointer; transition: background 0.15s; }
+  .sync-btn:hover { background: var(--crimson-light); }
+  .stats-bar { display: grid; grid-template-columns: repeat(5, 1fr); background: var(--surface); border-bottom: 1px solid var(--border); }
+  .stat { padding: 14px 20px; border-right: 1px solid var(--border); position: relative; }
+  .stat:last-child { border-right: none; }
+  .stat-accent { width: 3px; height: 100%; background: var(--crimson); position: absolute; left: 0; top: 0; }
+  .stat-label { font-size: 10px; font-weight: 500; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+  .stat-val { font-size: 24px; font-weight: 600; color: var(--navy); line-height: 1; }
+  .stat-sub { font-size: 11px; color: var(--muted); margin-top: 3px; }
+  .main { padding: 20px 24px; }
+  .charts-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+  .chart-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px 18px; }
+  .chart-title { font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px; }
+  .bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .bar-name { font-size: 12px; color: var(--text); width: 120px; flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bar-track { flex: 1; background: var(--blue-light); border-radius: 3px; height: 7px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 3px; background: var(--navy); }
+  .bar-count { font-size: 11px; color: var(--muted); font-family: 'DM Mono', monospace; width: 16px; text-align: right; }
+  .donut-wrap { display: flex; align-items: center; gap: 20px; }
+  .legend { display: flex; flex-direction: column; gap: 7px; }
+  .leg-row { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text); }
+  .leg-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+  .leg-count { margin-left: auto; font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); padding-left: 12px; }
+  .controls { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; margin-bottom: 16px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  .search-wrap { position: relative; flex: 1; min-width: 180px; }
+  .search-wrap input { width: 100%; padding: 7px 10px 7px 32px; border: 1px solid var(--border); border-radius: 6px; font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--text); background: var(--bg); outline: none; }
+  .search-wrap input:focus { border-color: var(--navy); }
+  .search-icon { position: absolute; left: 9px; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 14px; pointer-events: none; }
+  select { padding: 7px 28px 7px 10px; border: 1px solid var(--border); border-radius: 6px; font-family: 'DM Sans', sans-serif; font-size: 12px; color: var(--text); background: var(--bg); outline: none; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%236B7A8D'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; cursor: pointer; }
+  .clear-btn { font-size: 12px; color: var(--muted); cursor: pointer; padding: 7px 10px; border: none; background: none; font-family: 'DM Sans', sans-serif; text-decoration: underline; }
+  .clear-btn:hover { color: var(--crimson); }
+  .tabs { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+  .tab { font-size: 13px; font-weight: 500; padding: 8px 16px; color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+  .tab:hover { color: var(--text); }
+  .tab.active { color: var(--crimson); border-bottom-color: var(--crimson); }
+  .table-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead { background: var(--navy); }
+  th { text-align: left; font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.08em; padding: 10px 14px; cursor: pointer; white-space: nowrap; user-select: none; }
+  th:hover { color: rgba(255,255,255,0.9); }
+  th.sorted { color: #fff; }
+  td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--text); vertical-align: middle; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--cream); }
+  .td-mono { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); }
+  .td-email { font-family: 'DM Mono', monospace; font-size: 11px; color: #185FA5; }
+  .td-office { font-weight: 500; }
+  .badge { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 99px; letter-spacing: 0.04em; white-space: nowrap; }
+  .badge-r { background: var(--r-bg); color: var(--r-text); }
+  .badge-d { background: var(--d-bg); color: var(--d-text); }
+  .badge-house { background: var(--h-bg); color: var(--h-text); }
+  .badge-senate { background: var(--s-bg); color: var(--s-text); }
+  .badge-agency { background: var(--a-bg); color: var(--a-text); }
+  .no-results { text-align: center; padding: 40px; color: var(--muted); font-size: 13px; }
+  .results-count { font-size: 11px; color: var(--muted); font-family: 'DM Mono', monospace; padding: 8px 14px; border-top: 1px solid var(--border); background: var(--bg); }
+  .group-header td { background: var(--cream); font-weight: 600; font-size: 12px; color: var(--navy); padding: 8px 14px; border-bottom: 1px solid var(--border); }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const RAW_MEETINGS = [
+  { id:2,  date:"2026-04-01", client:"Vanguard",             office:"Rep. David Kustoff (R-TN)",         chamber:"House",  party:"R", govStaff:"", govEmail:"" },
+  { id:3,  date:"2026-04-01", client:"Vanguard",             office:"Rep. Beth Van Duyne (R-TX)",        chamber:"House",  party:"R", govStaff:"", govEmail:"" },
+  { id:4,  date:"2026-04-09", client:"Vanguard",             office:"Rep. Ron Estes (R-KS)",             chamber:"House",  party:"R", govStaff:"", govEmail:"" },
+  { id:5,  date:"2026-04-09", client:"Vanguard",             office:"Rep. Joaquin Castro (D-TX)",        chamber:"House",  party:"D", govStaff:"", govEmail:"" },
+  { id:6,  date:"2026-04-14", client:"Adyen",                office:"Department of the Treasury",        chamber:"Agency", party:"",  govStaff:"", govEmail:"" },
+  { id:7,  date:"2026-04-14", client:"Aaron's",              office:"Rep. William Timmons (R-SC)",       chamber:"House",  party:"R", govStaff:"", govEmail:"" },
+  { id:8,  date:"2026-04-15", client:"Aaron's",              office:"Rep. Tom Suozzi (D-NY)",            chamber:"House",  party:"D", govStaff:"", govEmail:"" },
+  { id:9,  date:"2026-04-15", client:"Corebridge Financial", office:"Rep. Roger Williams (R-TX)",        chamber:"House",  party:"R", govStaff:"", govEmail:"" },
+  { id:10, date:"2026-04-15", client:"Corebridge Financial", office:"Rep. Pete Sessions (R-TX)",         chamber:"House",  party:"R", govStaff:"", govEmail:"" },
+  { id:11, date:"2026-04-15", client:"Corebridge Financial", office:"Rep. Monica De La Cruz (R-TX)",     chamber:"House",  party:"R", govStaff:"", govEmail:"" },
+  { id:12, date:"2026-04-16", client:"Aaron's",              office:"Rep. Brian Jack (R-GA)",            chamber:"House",  party:"R", govStaff:"", govEmail:"" },
+  { id:13, date:"2026-04-16", client:"APRO",                 office:"Sen. Ashley Moody (R-FL)",          chamber:"Senate", party:"R", govStaff:"", govEmail:"" },
+  { id:14, date:"2026-04-16", client:"APRO",                 office:"Rep. Richard Hudson (R-NC)",        chamber:"House",  party:"R", govStaff:"", govEmail:"" },
+  { id:15, date:"2026-04-16", client:"APRO",                 office:"Senate Banking Majority Staff",     chamber:"Senate", party:"R", govStaff:"", govEmail:"" },
+  { id:16, date:"2026-04-16", client:"APRO",                 office:"HFSC Majority Staff",               chamber:"House",  party:"R", govStaff:"", govEmail:"" },
+  { id:17, date:"2026-04-16", client:"Vanguard",             office:"Rep. Ron Estes (R-KS)",             chamber:"House",  party:"R", govStaff:"", govEmail:"" },
+  { id:18, date:"2026-04-16", client:"Vanguard",             office:"Rep. Jodey Arrington (R-TX)",       chamber:"House",  party:"R", govStaff:"", govEmail:"" },
+  { id:19, date:"2026-04-16", client:"Vanguard",             office:"Rep. David Kustoff (R-TN)",         chamber:"House",  party:"R", govStaff:"", govEmail:"" },
+  { id:20, date:"2026-04-16", client:"Vanguard",             office:"Rep. Beth Van Duyne (R-TX)",        chamber:"House",  party:"R", govStaff:"", govEmail:"" },
+  { id:21, date:"2026-04-23", client:"Pudgy Penguins",       office:"House Staffer Lunch & Learn",       chamber:"House",  party:"",  govStaff:"", govEmail:"" },
+  { id:22, date:"2026-04-28", client:"Adyen",                office:"Treasury OIA",                      chamber:"Agency", party:"",  govStaff:"", govEmail:"" },
+];
+
+function fmtDate(d) {
+  return new Date(d+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'});
+}
+function uniq(arr) { return [...new Set(arr)].filter(Boolean).sort(); }
+
+let state = { search:'', filterClient:'', filterChamber:'', filterParty:'', sortCol:'date', sortDir:'asc', tab:'all', syncing:false };
+
+function setState(u) { Object.assign(state,u); render(); }
+
+function computeStats(m) {
+  return {
+    total:m.length,
+    clients:uniq(m.map(x=>x.client)).length,
+    offices:uniq(m.map(x=>x.office)).length,
+    house:m.filter(x=>x.chamber==='House').length,
+    senate:m.filter(x=>x.chamber==='Senate').length,
+    agency:m.filter(x=>x.chamber==='Agency').length,
+    r:m.filter(x=>x.party==='R').length,
+    d:m.filter(x=>x.party==='D').length,
+  };
+}
+
+function getFiltered() {
+  return RAW_MEETINGS.filter(m => {
+    if (state.filterClient && m.client!==state.filterClient) return false;
+    if (state.filterChamber && m.chamber!==state.filterChamber) return false;
+    if (state.filterParty && m.party!==state.filterParty) return false;
+    if (state.search) {
+      const q=state.search.toLowerCase();
+      if (!m.office.toLowerCase().includes(q)&&!m.client.toLowerCase().includes(q)&&!m.govStaff.toLowerCase().includes(q)) return false;
+    }
+    return true;
+  }).sort((a,b) => {
+    const av=a[state.sortCol]||'', bv=b[state.sortCol]||'';
+    const c=String(av).localeCompare(String(bv));
+    return state.sortDir==='asc'?c:-c;
+  });
+}
+
+function thH(col,label,w) {
+  const active=state.sortCol===col;
+  const arrow=active?(state.sortDir==='asc'?' ↑':' ↓'):' ↕';
+  return `<th class="${active?'sorted':''}" onclick="setSort('${col}')"${w?` style="width:${w}"`:''}>
+    ${label}<span style="opacity:${active?1:0.4};font-size:10px">${arrow}</span></th>`;
+}
+
+function badgeH(type,val) {
+  if(!val) return '<span style="color:var(--muted);font-size:12px">—</span>';
+  return `<span class="badge badge-${type}">${val}</span>`;
+}
+
+function rowH(m) {
+  const pending='<span style="color:var(--muted);font-style:italic;font-size:11px">Pending sync</span>';
+  return `<tr>
+    <td class="td-mono">${fmtDate(m.date)}</td>
+    <td>${m.client}</td>
+    <td class="td-office">${m.office}</td>
+    <td>${badgeH(m.chamber.toLowerCase(),m.chamber)}</td>
+    <td>${m.party?badgeH(m.party.toLowerCase(),m.party):'<span style="color:var(--muted)">—</span>'}</td>
+    <td>${m.govStaff||pending}</td>
+    <td class="${m.govEmail?'td-email':''}">${m.govEmail||pending}</td>
+  </tr>`;
+}
+
+function groupedRows(rows,key) {
+  const groups={};
+  rows.forEach(m=>{ const k=key==='client'?m.client:m.chamber; if(!groups[k])groups[k]=[]; groups[k].push(m); });
+  const keys=key==='client'?Object.keys(groups).sort():['House','Senate','Agency'].filter(k=>groups[k]);
+  return keys.flatMap(k=>[
+    `<tr class="group-header"><td colspan="7">${k} — ${groups[k].length} meeting${groups[k].length>1?'s':''}</td></tr>`,
+    ...groups[k].map(rowH)
+  ]).join('');
+}
+
+function render() {
+  const allClients=uniq(RAW_MEETINGS.map(m=>m.client));
+  const stats=computeStats(RAW_MEETINGS);
+  const filtered=getFiltered();
+  const today=new Date().toISOString().slice(0,10);
+  const displayRows=state.tab==='upcoming'?filtered.filter(m=>m.date>=today):filtered;
+  const clientCounts=allClients.map(c=>({name:c,count:RAW_MEETINGS.filter(m=>m.client===c).length})).sort((a,b)=>b.count-a.count);
+  const maxCount=Math.max(...clientCounts.map(c=>c.count),1);
+  const total=stats.r+stats.d+stats.agency;
+  const rP=(stats.r/total)*283, dP=(stats.d/total)*283, aP=(stats.agency/total)*283;
+
+  let tableBody='';
+  if(displayRows.length===0) tableBody='<tr><td colspan="7" class="no-results">No meetings match your filters.</td></tr>';
+  else if(state.tab==='by-client') tableBody=groupedRows(displayRows,'client');
+  else if(state.tab==='by-office') tableBody=groupedRows(displayRows,'chamber');
+  else tableBody=displayRows.map(rowH).join('');
+
+  document.getElementById('app').innerHTML=`
+    <div class="header">
+      <div>
+        <div class="header-title">EP · Client Government Meetings · 2026</div>
+        <div class="header-sub">${state.syncing?'⟳ Syncing Outlook calendars...':RAW_MEETINGS.length+' meetings · Gov. staff & emails populate on Outlook sync'}</div>
+      </div>
+      <button class="sync-btn" onclick="handleSync()">↻ ${state.syncing?'Syncing...':'Sync calendars'}</button>
+    </div>
+
+    <div class="stats-bar">
+      ${[['Total meetings',stats.total,'YTD 2026'],['Clients',stats.clients,'active'],['Offices',stats.offices,'unique'],['House / Senate',stats.house+' / '+stats.senate,'+ '+stats.agency+' agency'],['R / D',stats.r+' / '+stats.d,'bipartisan']]
+        .map(([l,v,s])=>`<div class="stat"><div class="stat-accent"></div><div class="stat-label">${l}</div><div class="stat-val">${v}</div><div class="stat-sub">${s}</div></div>`).join('')}
+    </div>
+
+    <div class="main">
+      <div class="charts-row">
+        <div class="chart-card">
+          <div class="chart-title">Meetings by client</div>
+          ${clientCounts.map(c=>`<div class="bar-row"><div class="bar-name" title="${c.name}">${c.name}</div><div class="bar-track"><div class="bar-fill" style="width:${(c.count/maxCount)*100}%"></div></div><div class="bar-count">${c.count}</div></div>`).join('')}
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Chamber &amp; party breakdown</div>
+          <div class="donut-wrap">
+            <svg width="100" height="100" viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="45" fill="none" stroke="#EEE" stroke-width="14"/>
+              <circle cx="50" cy="50" r="45" fill="none" stroke="#C0403F" stroke-width="14" stroke-dasharray="${rP} 283" stroke-dashoffset="0" transform="rotate(-90 50 50)"/>
+              <circle cx="50" cy="50" r="45" fill="none" stroke="#3A7ACC" stroke-width="14" stroke-dasharray="${dP} 283" stroke-dashoffset="${-rP}" transform="rotate(-90 50 50)"/>
+              <circle cx="50" cy="50" r="45" fill="none" stroke="#4E9A43" stroke-width="14" stroke-dasharray="${aP} 283" stroke-dashoffset="${-(rP+dP)}" transform="rotate(-90 50 50)"/>
+              <text x="50" y="54" text-anchor="middle" font-size="11" font-weight="600" font-family="DM Sans" fill="#1B2A4A">${RAW_MEETINGS.length}</text>
+            </svg>
+            <div class="legend">
+              ${[['#C0403F','Republican',stats.r],['#3A7ACC','Democrat',stats.d],['#4E9A43','Agency',stats.agency],['#7A5F30','House',stats.house],['#5A3E8A','Senate',stats.senate]]
+                .map(([c,l,n])=>`<div class="leg-row"><div class="leg-dot" style="background:${c}"></div>${l}<span class="leg-count">${n}</span></div>`).join('')}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tabs">
+        ${[['all','All meetings'],['by-client','By client'],['by-office','By chamber'],['upcoming','Upcoming']]
+          .map(([k,l])=>`<div class="tab${state.tab===k?' active':''}" onclick="setTab('${k}')">${l}</div>`).join('')}
+      </div>
+
+      <div class="controls">
+        <div class="search-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" placeholder="Search offices, clients, staff…" value="${state.search}" oninput="setState({search:this.value})"/>
+        </div>
+        <select onchange="setState({filterClient:this.value})">
+          <option value="">All clients</option>
+          ${allClients.map(c=>`<option value="${c}"${state.filterClient===c?' selected':''}>${c}</option>`).join('')}
+        </select>
+        <select onchange="setState({filterChamber:this.value})">
+          <option value="">All chambers</option>
+          ${['House','Senate','Agency'].map(c=>`<option value="${c}"${state.filterChamber===c?' selected':''}>${c}</option>`).join('')}
+        </select>
+        <select onchange="setState({filterParty:this.value})">
+          <option value="">Both parties</option>
+          <option value="R"${state.filterParty==='R'?' selected':''}>Republican</option>
+          <option value="D"${state.filterParty==='D'?' selected':''}>Democrat</option>
+        </select>
+        <button class="clear-btn" onclick="setState({search:'',filterClient:'',filterChamber:'',filterParty:''})">Clear filters</button>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr>
+            ${thH('date','Date','70px')}
+            ${thH('client','Client','130px')}
+            ${thH('office','Office')}
+            ${thH('chamber','Chamber','85px')}
+            ${thH('party','Party','60px')}
+            ${thH('govStaff','Gov. Staff','150px')}
+            ${thH('govEmail','Gov. Email','190px')}
+          </tr></thead>
+          <tbody>${tableBody}</tbody>
+        </table>
+        <div class="results-count">${displayRows.length} of ${RAW_MEETINGS.length} meetings${state.tab==='upcoming'?' (upcoming only)':''} · Gov. staff & emails populate on Outlook sync</div>
+      </div>
+    </div>`;
+}
+
+function setSort(col) { setState(state.sortCol===col?{sortDir:state.sortDir==='asc'?'desc':'asc'}:{sortCol:col,sortDir:'asc'}); }
+function setTab(tab) { setState({tab}); }
+function handleSync() { setState({syncing:true}); setTimeout(()=>setState({syncing:false}),2000); }
+
+render();
+</script>
+</body>
+</html>
