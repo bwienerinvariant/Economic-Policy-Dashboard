@@ -406,4 +406,34 @@ function setRevSort(col){setState(state.revSort===col?{revDir:state.revDir==='as
 render();
 </script>
 </body>
-</html>
+</html>function renderEPOrg(){
+  var ep=STAFF.filter(function(s){return s.pg==='Economic Policy';});
+  var tiers=[
+    {label:'Chair',            members:ep.filter(function(s){return s.chair;})},
+    {label:'Principal',        members:ep.filter(function(s){return s.role==='Principal';})},
+    {label:'Senior Director',  members:ep.filter(function(s){return s.role==='Senior Director';})},
+    {label:'Director',         members:ep.filter(function(s){return s.role==='Director';})},
+    {label:'Senior Manager',   members:ep.filter(function(s){return s.role.indexOf('Senior Manager')===0;})},
+    {label:'Senior Associate', members:ep.filter(function(s){return s.role==='Senior Associate';})},
+    {label:'Associate',        members:ep.filter(function(s){return s.role==='Associate';})},
+  ].filter(function(t){return t.members.length>0;});
+  var h='<div style="max-width:680px;margin:0 auto;">';
+  tiers.forEach(function(tier,i){
+    var isChair=i===0;
+    var isLast=i===tiers.length-1;
+    h+='<div style="display:flex;gap:0;">';
+    h+='<div style="display:flex;flex-direction:column;align-items:center;width:28px;flex-shrink:0;">';
+    if(i>0){h+='<div style="width:2px;background:var(--border);flex:0 0 12px;"></div>';h+='<div style="width:14px;height:2px;background:var(--border);align-self:flex-start;margin-top:18px;flex-shrink:0;"></div>';}
+    else{h+='<div style="flex:0 0 14px;"></div>';}
+    if(!isLast){h+='<div style="width:2px;background:var(--border);flex:1;min-height:8px;"></div>';}
+    h+='</div>';
+    h+='<div style="flex:1;margin-bottom:'+(isLast?'0':'4px')+';padding-left:6px;">';
+    h+='<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--crimson);margin-bottom:5px;margin-top:'+(i===0?'0':'10px')+';">'+tier.label+(tier.members.length>1?'s':'')+'</div>';
+    tier.members.forEach(function(s){h+=orgCard(s,isChair);});
+    h+='</div>';
+    h+='</div>';
+  });
+  h+='</div>';
+  return h;
+}
+
