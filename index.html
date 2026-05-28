@@ -622,6 +622,12 @@ const CLIENTS = [
 let state={page:'meetings',search:'',filterClient:'',filterChamber:'',filterParty:'',sortCol:'date',sortDir:'asc',tab:'all',cSearch:'',filterLead:'',filterCRO:'',cSort:'name',cDir:'asc',revSort:'q1_2026',revDir:'desc',tSearch:'',tFilter:'',tSort:'workload',topFilter:'',pgFilter:'all',orgView:'ep'};
 const EP_TEAM = ['Ben','Audrey','Ethan','Noah','Carolyn','Alex','Kris','Ryan','Peter','Alden'];
 function setState(u){Object.assign(state,u);render();}
+window.setState=setState;
+document.addEventListener('click',function(e){
+  var t=e.target;
+  if(t.id==='org-ep') setState({orgView:'ep'});
+  if(t.id==='org-firm') setState({orgView:'firm'});
+});
 function fmt(d){return new Date(d+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'});}
 function fmtMoney(n){if(!n)return'\u2014';return'$'+n.toLocaleString();}
 function uniq(arr){return[...new Set(arr)].filter(Boolean).sort();}
@@ -724,172 +730,104 @@ function renderEPOrg(){
   h+='</div>';
   return h;
 }
+
 function renderFirmwideOrg(){
-  // ── Utility ──
-  function box(name, role, highlight, small){
-    var bg=highlight?'var(--crimson)':'var(--navy-mid)';
-    var sz=small?'11px':'12px';
-    var pd=small?'7px 10px':'9px 12px';
-    return '<div style="background:'+bg+';color:#fff;border-radius:5px;padding:'+pd+';text-align:center;font-size:'+sz+';line-height:1.3;min-width:90px;">'
-      +'<div style="font-weight:600;">'+name+'</div>'
-      +'<div style="font-size:9px;opacity:.75;margin-top:2px;">'+role+'</div>'
-      +'</div>';
-  }
-  function connector(){
-    return '<div style="width:2px;height:20px;background:var(--border);margin:0 auto;"></div>';
-  }
-  function hline(cols){
-    return '<div style="height:2px;background:var(--border);margin:0 auto;width:'+(cols*120)+'px;max-width:100%;"></div>';
-  }
-
-  var ceo=STAFF.find(function(s){return s.section==='leadership';});
-  var csuite=STAFF.filter(function(s){return s.section==='biz_ops' && s.role.indexOf('Chief')>=0;});
-  var grHead=STAFF.find(function(s){return s.section==='gr_lead' && s.role==='Executive Vice President' && s.name.indexOf('Sherer')>=0;});
-  var commsHead=STAFF.find(function(s){return s.section==='comms' && s.role.indexOf('Senior Vice President')>=0;});
-  var otherHeads=STAFF.filter(function(s){
-    return s.section==='biz_ops' && (s.role.indexOf('Head')>=0 || (s.role.indexOf('Chief')>=0 && s.name !== (ceo?ceo.name:'')));
-  });
-
-  var GR_ORDER=['Economic Policy','National Security','Technology & Competition','Health Care','Energy/Environment','Transportation & Infrastructure','Food/Agriculture','Consumer Products/Trade Associations'];
-  var GR_SHORT={'Economic Policy':'Econ Policy','National Security':'Nat. Security','Technology & Competition':'Tech & Comp','Health Care':'Health Care','Energy/Environment':'Energy & Env','Transportation & Infrastructure':'Transport','Food/Agriculture':'Food & Ag','Consumer Products/Trade Associations':'Consumer Prod'};
-
-  var TIER_ORDER=['Chair','Principal','Senior Vice President','Vice President','Executive Vice President','Senior Director','Director','Senior Manager','Senior Manager and Advisor','Manager','Senior Associate','Associate'];
-  function tierRank(role){
-    var r=TIER_ORDER.indexOf(role);
-    return r<0?99:r;
-  }
-
-  var h='<div style="font-family:inherit;">';
+  var h='';
 
   // ── CEO ──
-  if(ceo){
-    h+='<div style="text-align:center;margin-bottom:4px;">';
-    h+='<div style="display:inline-block;background:var(--navy);color:#fff;padding:10px 32px;border-radius:6px;font-weight:700;font-size:13px;">'+ceo.name+'<div style="font-size:10px;font-weight:400;opacity:.75;margin-top:2px;">Chief Executive Officer</div></div>';
+  var ceo=STAFF.filter(function(s){return s.section==='leadership';});
+  if(ceo.length){
+    h+='<div style="text-align:center;margin-bottom:8px;">';
+    h+='<div style="display:inline-block;background:var(--navy);color:#fff;padding:10px 40px;border-radius:6px;font-weight:700;font-size:13px;">'+ceo[0].name+'</div>';
+    h+='<div style="font-size:11px;color:var(--muted);margin-top:3px;">Chief Executive Officer</div>';
     h+='</div>';
-    h+=connector();
+    h+='<div style="width:2px;height:16px;background:var(--border);margin:0 auto;"></div>';
   }
 
-  // ── C-Suite + Heads row ──
-  h+='<div style="display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:4px;">';
-  csuite.forEach(function(s){h+=box(s.name,s.role,false,true);});
-  h+='</div>';
-  h+=connector();
-
-  // ── GR Head banner ──
-  if(grHead){
-    h+='<div style="text-align:center;margin-bottom:4px;">';
-    h+='<div style="display:inline-block;background:#c4a882;color:var(--navy);padding:8px 24px;border-radius:6px;font-size:12px;font-weight:600;">Government Relations Practice &mdash; '+grHead.name+'<span style="font-weight:400;">, '+grHead.role+'</span></div>';
-    h+='</div>';
-    h+=connector();
-  }
-
-  // ── Practice group columns ──
-  h+='<div style="display:grid;grid-template-columns:repeat(8,1fr);gap:6px;margin-bottom:24px;">';
-  GR_ORDER.forEach(function(pg){
-    var members=STAFF.filter(function(s){return s.pg===pg && s.section==='gr';});
-    var chair=members.find(function(s){return s.chair;});
-    var rest=members.filter(function(s){return !s.chair;}).sort(function(a,b){return tierRank(a.role)-tierRank(b.role)||a.last.localeCompare(b.last);});
-    var label=GR_SHORT[pg]||pg;
-    h+='<div style="display:flex;flex-direction:column;gap:3px;">';
-    // Column header
-    h+='<div style="background:var(--navy);color:#fff;text-align:center;padding:5px 4px;font-size:9px;font-weight:700;border-radius:4px 4px 0 0;letter-spacing:.03em;">'+label+'</div>';
-    // Chair box (crimson)
-    if(chair){
-      h+='<div style="background:var(--crimson);color:#fff;padding:5px 6px;font-size:9px;text-align:center;line-height:1.3;">';
-      h+='<div style="font-weight:700;">'+chair.name+'</div>';
-      h+='<div style="opacity:.75;font-size:8px;">Chair</div>';
-      h+='</div>';
-    }
-    // Rest of column
-    rest.forEach(function(s){
-      var roleTier=s.role.replace(' and Advisor','').replace('Senior ','Sr. ').replace('Associate','Assoc').replace('Director','Dir').replace('Principal','Principal').replace('Manager','Mgr');
-      h+='<div style="background:var(--blue-light);padding:4px 6px;font-size:9px;line-height:1.3;border-left:2px solid var(--border);">';
-      h+='<div style="font-weight:600;color:var(--navy);">'+s.name+'</div>';
-      h+='<div style="color:var(--muted);font-size:8px;">'+roleTier+'</div>';
+  // ── C-Suite ──
+  var csuite=STAFF.filter(function(s){return s.section==='biz_ops' && s.role.indexOf('Chief')===0;});
+  if(csuite.length){
+    h+='<div style="display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-bottom:8px;">';
+    csuite.forEach(function(s){
+      h+='<div style="background:var(--blue-light);border:1px solid var(--border);border-radius:5px;padding:7px 12px;text-align:center;min-width:130px;">';
+      h+='<div style="font-weight:600;font-size:11px;color:var(--navy);">'+s.name+'</div>';
+      h+='<div style="font-size:9px;color:var(--muted);margin-top:2px;">'+s.role+'</div>';
       h+='</div>';
     });
     h+='</div>';
-  });
-  h+='</div>';
+    h+='<div style="width:2px;height:16px;background:var(--border);margin:0 auto;"></div>';
+  }
 
-  // ── Communications section ──
-  var commsSVPs=STAFF.filter(function(s){return s.section==='comms' && (s.role.indexOf('Vice President')>=0 || s.role==='Principal');});
-  var commsRest=STAFF.filter(function(s){return s.section==='comms' && s.role.indexOf('Vice President')<0 && s.role!=='Principal';});
+  // ── GR Practice ──
+  h+='<div style="font-size:12px;font-weight:700;color:#fff;background:var(--navy);padding:8px 16px;border-radius:6px;margin-bottom:10px;text-align:center;">Government Relations Practice</div>';
+  h+=renderGROrg();
 
-  h+='<div style="font-size:11px;font-weight:700;color:var(--navy);border-bottom:2px solid var(--crimson);padding-bottom:4px;margin-bottom:10px;">Communications &amp; Public Affairs</div>';
-  h+='<div style="margin-bottom:4px;display:flex;gap:6px;flex-wrap:wrap;">';
-  commsSVPs.forEach(function(s){
-    h+='<div style="background:var(--navy);color:#fff;padding:5px 8px;border-radius:4px;font-size:10px;"><div style="font-weight:600;">'+s.name+'</div><div style="font-size:8px;opacity:.75;">'+s.role.replace('Vice President - Brand Strategy and External Affairs','VP')+'</div></div>';
-  });
-  h+='</div>';
-  // Comms staff by tier
-  var commsTiers=[
-    {label:'Senior Director',m:commsRest.filter(function(s){return s.role.indexOf('Senior Director')>=0;})},
-    {label:'Director',m:commsRest.filter(function(s){return s.role.indexOf('Director')>=0&&s.role.indexOf('Senior')<0;})},
-    {label:'Senior Manager',m:commsRest.filter(function(s){return s.role.indexOf('Senior Manager')>=0;})},
-    {label:'Manager',m:commsRest.filter(function(s){return s.role==='Manager';})},
-    {label:'Senior Associate / Designer',m:commsRest.filter(function(s){return s.role.indexOf('Senior Associate')>=0||s.role.indexOf('Senior Designer')>=0||s.role.indexOf('Art Director')>=0;})},
-    {label:'Associate',m:commsRest.filter(function(s){return s.role==='Associate'||s.role==='Digital Content Strategist';})},
-  ].filter(function(t){return t.m.length>0;});
-  h+='<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px;margin-bottom:20px;">';
-  commsTiers.forEach(function(tier){
-    h+='<div style="background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:8px;">';
-    h+='<div style="font-size:9px;font-weight:700;color:var(--crimson);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;">'+tier.label+'</div>';
-    tier.m.forEach(function(s){
-      h+='<div style="font-size:11px;color:var(--navy);font-weight:500;padding:2px 0;">'+s.name+'</div>';
+  // ── Communications ──
+  var comms=STAFF.filter(function(s){return s.section==='comms';});
+  if(comms.length){
+    h+='<div style="font-size:12px;font-weight:700;color:#fff;background:#7a5a3a;padding:8px 16px;border-radius:6px;margin:20px 0 10px;text-align:center;">Communications &amp; Public Affairs</div>';
+    var CTIERS=[
+      {label:'SVP / VP / Principal',roles:['Senior Vice President','Vice President','Vice President - Brand Strategy and External Affairs','Principal']},
+      {label:'Senior Director',roles:['Senior Director']},
+      {label:'Director',roles:['Director','Art Director','Digital Content Strategist']},
+      {label:'Senior Manager',roles:['Senior Manager','Senior Manager, Marketing & Strategic Communications']},
+      {label:'Manager',roles:['Manager']},
+      {label:'Senior Associate / Designer',roles:['Senior Associate','Senior Designer']},
+      {label:'Associate',roles:['Associate']},
+    ];
+    h+='<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;">';
+    CTIERS.forEach(function(tier){
+      var members=comms.filter(function(s){return tier.roles.indexOf(s.role)>=0;});
+      if(!members.length) return;
+      h+='<div style="background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:8px;">';
+      h+='<div style="font-size:9px;font-weight:700;color:var(--crimson);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;">'+tier.label+'</div>';
+      members.forEach(function(s){
+        h+='<div style="font-size:11px;color:var(--navy);font-weight:500;padding:1px 0;">'+s.name+'</div>';
+      });
+      h+='</div>';
     });
     h+='</div>';
-  });
-  h+='</div>';
+  }
 
   // ── Business Operations ──
-  var biz=STAFF.filter(function(s){return s.section==='biz_ops' && s.role.indexOf('Chief')<0;});
-  h+='<div style="font-size:11px;font-weight:700;color:var(--navy);border-bottom:2px solid var(--crimson);padding-bottom:4px;margin-bottom:10px;">Business Operations &amp; Executive Team</div>';
-  h+='<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;">';
-  var bizTiers=[
-    {label:'Senior Director / Director',m:biz.filter(function(s){return s.role.indexOf('Director')>=0;})},
-    {label:'Manager',m:biz.filter(function(s){return s.role.indexOf('Manager')>=0&&s.role.indexOf('Director')<0;})},
-    {label:'Senior Associate / Associate',m:biz.filter(function(s){return s.role.indexOf('Associate')>=0||s.role.indexOf('Accountant')>=0;})},
-  ].filter(function(t){return t.m.length>0;});
-  bizTiers.forEach(function(tier){
-    h+='<div style="background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:8px;">';
-    h+='<div style="font-size:9px;font-weight:700;color:var(--crimson);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;">'+tier.label+'</div>';
-    tier.m.forEach(function(s){
-      h+='<div style="font-size:11px;color:var(--navy);font-weight:500;padding:2px 0;">'+s.name+'</div>';
+  var biz=STAFF.filter(function(s){return s.section==='biz_ops' && s.role.indexOf('Chief')!==0;});
+  if(biz.length){
+    h+='<div style="font-size:12px;font-weight:700;color:#fff;background:#3a5a4a;padding:8px 16px;border-radius:6px;margin:20px 0 10px;text-align:center;">Business Operations &amp; Executive Team</div>';
+    var BTIERS=[
+      {label:'Senior Director / Director',roles:['Senior Director','Finance Director','Director']},
+      {label:'Manager',roles:['Manager','Manager, Scheduling and Strategic Planning']},
+      {label:'Senior Associate / Accountant',roles:['Senior Associate','Senior Associate, Scheduling','Senior Staff Accountant']},
+      {label:'Associate / Staff',roles:['Associate','Staff Accountant','Data and Analytics']},
+    ];
+    h+='<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;">';
+    BTIERS.forEach(function(tier){
+      var members=biz.filter(function(s){return tier.roles.indexOf(s.role)>=0;});
+      if(!members.length) return;
+      h+='<div style="background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:8px;">';
+      h+='<div style="font-size:9px;font-weight:700;color:var(--crimson);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;">'+tier.label+'</div>';
+      members.forEach(function(s){
+        h+='<div style="font-size:11px;color:var(--navy);font-weight:500;padding:1px 0;">'+s.name+'</div>';
+      });
+      h+='</div>';
     });
     h+='</div>';
-  });
-  h+='</div>';
+  }
 
-  h+='</div>';
   return h;
 }
 
 function renderOrgChart(){
-  var epActive=state.orgView!=='gr';
-  var epCount=STAFF.filter(function(s){return s.pg==='Economic Policy';}).length;
-  var grCount=STAFF.filter(function(s){return s.section==='gr';}).length;
-
-  var tabBase='padding:9px 20px;font-size:12px;font-weight:600;cursor:pointer;border-right:1px solid var(--border);';
-  var tabOn='background:var(--navy);color:#fff;';
-  var tabOff='background:#fff;color:var(--navy);';
-
+  var epActive=state.orgView!=='firm';
+  var tsBase='padding:9px 22px;font-size:12px;font-weight:600;cursor:pointer;border:none;font-family:inherit;';
+  var t1s=tsBase+'border-right:2px solid var(--navy);background:'+(epActive?'var(--navy)':'#fff')+';color:'+(epActive?'#fff':'var(--navy)')+';';
+  var t2s=tsBase+'background:'+(!epActive?'var(--navy)':'#fff')+';color:'+(!epActive?'#fff':'var(--navy)')+';';
   var h='<div class="main">';
-  h+='<div style="display:flex;margin-bottom:20px;border:1px solid var(--border);border-radius:8px;overflow:hidden;width:fit-content;">';
-  h+='<div id="org-tab-ep" style="'+tabBase+(epActive?tabOn:tabOff)+'">Economic Policy <span style="opacity:.65;font-weight:400;">('+epCount+')</span></div>';
-  h+='<div id="org-tab-gr" style="'+tabBase.replace(';border-right:1px solid var(--border)','')+(epActive?tabOff:tabOn)+'">All GR Groups <span style="opacity:.65;font-weight:400;">('+grCount+')</span></div>';
+  h+='<div style="display:flex;margin-bottom:24px;border:2px solid var(--navy);border-radius:8px;overflow:hidden;width:fit-content;">';
+  h+='<button id="org-ep" style="'+t1s+'">Economic Policy</button>';
+  h+='<button id="org-firm" style="'+t2s+'">Firm-wide</button>';
   h+='</div>';
-  h+=epActive?renderEPOrg():renderGROrg();
+  h+=epActive?renderEPOrg():renderFirmwideOrg();
   h+='</div>';
-
-  // Attach click handlers after render
-  setTimeout(function(){
-    var ep=document.getElementById('org-tab-ep');
-    var gr=document.getElementById('org-tab-gr');
-    if(ep) ep.addEventListener('click',function(){setState({orgView:'ep'});});
-    if(gr) gr.addEventListener('click',function(){setState({orgView:'gr'});});
-  },0);
-
   return h;
 }
 
@@ -903,7 +841,7 @@ function renderGROrg(){
   PGS.forEach(function(pg){
     var members=STAFF.filter(function(s){return s.pg===pg && s.section==='gr';});
     var chair=members.find(function(s){return s.chair;});
-    var rest=members.filter(function(s){return !s.chair;}).sort(function(a,b){return tr(a.role)-tr(b.role)||a.name.split(' ').pop().localeCompare(b.name.split(' ').pop());});
+    var rest=members.filter(function(s){return !s.chair;}).sort(function(a,b){var ra=a.name||'';var rb=b.name||'';var la=ra.split(' ').pop()||ra;var lb=rb.split(' ').pop()||rb;return tr(a.role)-tr(b.role)||la.localeCompare(lb);});
     var label=SHORT[pg]||pg;
     h+='<div style="border:1px solid var(--border);border-radius:8px;overflow:hidden;">';
     h+='<div style="background:var(--navy);color:#fff;padding:8px 10px;font-size:11px;font-weight:700;text-align:center;">'+label+'</div>';
@@ -953,3 +891,4 @@ render();
 </script>
 </body>
 </html>
+
