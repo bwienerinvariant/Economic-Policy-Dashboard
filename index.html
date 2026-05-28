@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html lang="en">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -128,76 +127,149 @@ tr:hover td{background:var(--cream);}
 <body>
 <div id="app"></div>
 <script>
-const SYNC_DATE = "May 26, 2026";
+const SYNC_DATE="Last Updated: May 28, 2026";
 const SWEEP_NOTE = "Full certainty sweep complete \u2014 all 10 EP team calendars fully paginated and grep-verified, all 30 clients keyword-checked, zero genuine misses";
 
 const STAFF=[
-  {name:"Carolyn Coda",role:"Senior Vice President",pg:"Economic Policy",email:"coda@invariantgr.com",chair:true},
-  {name:"Noah Marine",role:"Principal",pg:"Economic Policy",email:"marine@invariantgr.com",chair:false},
-  {name:"Kris Denzel",role:"Senior Director",pg:"Economic Policy",email:"denzel@invariantgr.com",chair:false},
-  {name:"Ryan Dilworth",role:"Senior Director",pg:"Economic Policy",email:"dilworth@invariantgr.com",chair:false},
-  {name:"Alden Knowlton",role:"Senior Director",pg:"Economic Policy",email:"knowlton@invariantgr.com",chair:false},
-  {name:"Alex Cisneros",role:"Director",pg:"Economic Policy",email:"cisneros@invariantgr.com",chair:false},
-  {name:"Peter Wells",role:"Senior Manager and Advisor",pg:"Economic Policy",email:"wells@invariantgr.com",chair:false},
-  {name:"Ethan Billips",role:"Associate",pg:"Economic Policy",email:"billips@invariantgr.com",chair:false},
-  {name:"Audrey Neumann",role:"Associate",pg:"Economic Policy",email:"neumann@invariantgr.com",chair:false},
-  {name:"Ben Wiener",role:"Associate",pg:"Economic Policy",email:"wiener@invariantgr.com",chair:false},
-  {name:"Jenness Simler",role:"Chair",pg:"National Security",email:"simler@invariantgr.com",chair:true},
-  {name:"Dena Baron Smith",role:"Principal",pg:"National Security",email:"dena@invariantgr.com",chair:false},
-  {name:"Katy Hagan",role:"Principal",pg:"National Security",email:"hagan@invariantgr.com",chair:false},
-  {name:"Jack Schuler",role:"Principal",pg:"National Security",email:"schuler@invariantgr.com",chair:false},
-  {name:"Ryan Doherty",role:"Senior Director",pg:"National Security",email:"doherty@invariantgr.com",chair:false},
-  {name:"Mariah Carray",role:"Director",pg:"National Security",email:"carray@invariantgr.com",chair:false},
-  {name:"Jessica Dickson",role:"Director",pg:"National Security",email:"dickson@invariantgr.com",chair:false},
-  {name:"Leoni Foster",role:"Associate",pg:"National Security",email:"leoni@invariantgr.com",chair:false},
-  {name:"Katelyn Raffenbeul",role:"Associate",pg:"National Security",email:"raffenbeul@invariantgr.com",chair:false},
-  {name:"Joel Richard",role:"Vice President",pg:"Technology & Competition",email:"richard@invariantgr.com",chair:true},
-  {name:"Jason Goldman",role:"Principal",pg:"Technology & Competition",email:"goldman@invariantgr.com",chair:false},
-  {name:"Halie Craig",role:"Senior Director",pg:"Technology & Competition",email:"craig@invariantgr.com",chair:false},
-  {name:"Jennifer Haynes",role:"Senior Director",pg:"Technology & Competition",email:"haynes@invariantgr.com",chair:false},
-  {name:"Sean Sweeney",role:"Director",pg:"Technology & Competition",email:"sweeney@invariantgr.com",chair:false},
-  {name:"Jonny Montano",role:"Senior Manager",pg:"Technology & Competition",email:"montano@invariantgr.com",chair:false},
-  {name:"Madison Baker",role:"Manager",pg:"Technology & Competition",email:"madison@invariantgr.com",chair:false},
-  {name:"Damen Alexander",role:"Senior Associate",pg:"Technology & Competition",email:"alexander@invariantgr.com",chair:false},
-  {name:"Anthony D'Alessio",role:"Associate",pg:"Technology & Competition",email:"dalessio@invariantgr.com",chair:false},
-  {name:"Tressel Stone",role:"Associate",pg:"Technology & Competition",email:"stone@weareinvariant.com",chair:false},
-  {name:"Caroline Surratt",role:"Associate",pg:"Technology & Competition",email:"surratt@invariantgr.com",chair:false},
-  {name:"Drew Griffin",role:"Principal",pg:"Health Care",email:"griffin@invariantgr.com",chair:true},
-  {name:"Matthew Fery",role:"Principal",pg:"Health Care",email:"fery@invariantgr.com",chair:false},
-  {name:"Chris Gillott",role:"Principal",pg:"Health Care",email:"gillott@invariantgr.com",chair:false},
-  {name:"Jeff Lungren",role:"Principal",pg:"Health Care",email:"lungren@invariantgr.com",chair:false},
-  {name:"Steve Weyler",role:"Senior Director",pg:"Health Care",email:"weyler@invariantgr.com",chair:false},
-  {name:"Jill Courtney",role:"Senior Associate",pg:"Health Care",email:"courtney@invariantgr.com",chair:false},
-  {name:"Mary Keden",role:"Associate",pg:"Health Care",email:"keden@invariantgr.com",chair:false},
-  {name:"Jordan Thomas",role:"Associate",pg:"Health Care",email:"thomas@invariantgr.com",chair:false},
-  {name:"Landon Stropko",role:"Senior Vice President",pg:"Energy/Environment",email:"stropko@invariantgr.com",chair:true},
-  {name:"Doug Dziak",role:"Principal",pg:"Energy/Environment",email:"dziak@invariantgr.com",chair:false},
-  {name:"Logan Hollers",role:"Principal",pg:"Energy/Environment",email:"hollers@invariantgr.com",chair:false},
-  {name:"Annie D'Amato",role:"Senior Director",pg:"Energy/Environment",email:"damato@invariantgr.com",chair:false},
-  {name:"Jared Soncrant",role:"Director",pg:"Energy/Environment",email:"soncrant@invariantgr.com",chair:false},
-  {name:"Max Whitcomb",role:"Senior Manager",pg:"Energy/Environment",email:"whitcomb@invariantgr.com",chair:false},
-  {name:"Damian Ortega",role:"Manager",pg:"Energy/Environment",email:"ortega@invariantgr.com",chair:false},
-  {name:"Lucas Lovekin",role:"Senior Associate",pg:"Energy/Environment",email:"lovekin@invariantgr.com",chair:false},
-  {name:"Maggie McInerney",role:"Associate",pg:"Energy/Environment",email:"mcinerney@invariantgr.com",chair:false},
-  {name:"Tim Martin",role:"Vice President",pg:"Transportation & Infrastructure",email:"martin@invariantgr.com",chair:true},
-  {name:"Joe Bushong",role:"Principal",pg:"Transportation & Infrastructure",email:"bushong@invariantgr.com",chair:false},
-  {name:"Lane Coberly",role:"Manager",pg:"Transportation & Infrastructure",email:"coberly@invariantgr.com",chair:false},
-  {name:"Belle Broll",role:"Associate",pg:"Transportation & Infrastructure",email:"broll@invariantgr.com",chair:false},
-  {name:"Ryan Figus",role:"Associate",pg:"Transportation & Infrastructure",email:"figus@invariantgr.com",chair:false},
-  {name:"Ken Barbic",role:"Principal",pg:"Food/Agriculture",email:"barbic@invariantgr.com",chair:true},
-  {name:"Anne MacMillan",role:"Executive Vice President",pg:"Food/Agriculture",email:"macmillan@invariantgr.com",chair:false},
-  {name:"Jordan Bonfitto",role:"Director",pg:"Food/Agriculture",email:"bonfitto@invariantgr.com",chair:false},
-  {name:"Will Sitton",role:"Senior Manager",pg:"Food/Agriculture",email:"sitton@invariantgr.com",chair:false},
-  {name:"Alexis Bass",role:"Senior Associate",pg:"Food/Agriculture",email:"bass@invariantgr.com",chair:false},
-  {name:"Emerson Houser",role:"Senior Associate",pg:"Food/Agriculture",email:"houser@invariantgr.com",chair:false},
-  {name:"Mary Beth Stanton",role:"Senior Vice President",pg:"Consumer Products/Trade Associations",email:"stanton@invariantgr.com",chair:true},
-  {name:"Kenny Roberts",role:"Principal",pg:"Consumer Products/Trade Associations",email:"roberts@invariantgr.com",chair:false},
-  {name:"Ashley O'Sullivan",role:"Senior Director",pg:"Consumer Products/Trade Associations",email:"osullivan@invariantgr.com",chair:false},
-  {name:"Marcus Davis-Mercer",role:"Senior Associate",pg:"Consumer Products/Trade Associations",email:"davismercer@invariantgr.com",chair:false},
-  {name:"Maia Hunt Estes",role:"Senior Vice President",pg:"Government Relations",email:"estes@invariantgr.com",chair:false},
-  {name:"Nicole Venable",role:"Senior Vice President",pg:"Government Relations",email:"venable@invariantgr.com",chair:false},
-  {name:"Jim Durrett",role:"Principal",pg:"Government Relations",email:"durrett@invariantgr.com",chair:false},
-  {name:"Claire Shackleford",role:"Senior Associate",pg:"Government Relations",email:"shackleford@invariantgr.com",chair:false},
+  {name:"Heather Podesta",role:"Chief Executive Officer",pg:"Leadership",dept:"Leadership",section:"leadership",email:"podesta@invariantgr.com",chair:false},
+  {name:"Carolyn Coda",role:"Senior Vice President",pg:"Economic Policy",dept:"Government Relations",section:"gr",email:"coda@invariantgr.com",chair:true},
+  {name:"Noah Marine",role:"Principal",pg:"Economic Policy",dept:"Government Relations",section:"gr",email:"marine@invariantgr.com",chair:false},
+  {name:"Kris Denzel",role:"Senior Director",pg:"Economic Policy",dept:"Government Relations",section:"gr",email:"denzel@invariantgr.com",chair:false},
+  {name:"Ryan Dilworth",role:"Senior Director",pg:"Economic Policy",dept:"Government Relations",section:"gr",email:"dilworth@invariantgr.com",chair:false},
+  {name:"Alden Knowlton",role:"Senior Director",pg:"Economic Policy",dept:"Government Relations",section:"gr",email:"knowlton@invariantgr.com",chair:false},
+  {name:"Alex Cisneros",role:"Director",pg:"Economic Policy",dept:"Government Relations",section:"gr",email:"cisneros@invariantgr.com",chair:false},
+  {name:"Peter Wells",role:"Senior Manager and Advisor",pg:"Economic Policy",dept:"Government Relations",section:"gr",email:"wells@invariantgr.com",chair:false},
+  {name:"Ethan Billips",role:"Associate",pg:"Economic Policy",dept:"Government Relations",section:"gr",email:"billips@invariantgr.com",chair:false},
+  {name:"Audrey Neumann",role:"Associate",pg:"Economic Policy",dept:"Government Relations",section:"gr",email:"neumann@invariantgr.com",chair:false},
+  {name:"Ben Wiener",role:"Associate",pg:"Economic Policy",dept:"Government Relations",section:"gr",email:"wiener@invariantgr.com",chair:false},
+  {name:"Lindley Kratovil Sherer",role:"Executive Vice President",pg:"National Security",dept:"Government Relations",section:"gr",email:"sherer@invariantgr.com",chair:true},
+  {name:"Dena Baron Smith",role:"Principal",pg:"National Security",dept:"Government Relations",section:"gr",email:"dena@invariantgr.com",chair:false},
+  {name:"Katy Hagan",role:"Principal",pg:"National Security",dept:"Government Relations",section:"gr",email:"hagan@invariantgr.com",chair:false},
+  {name:"Jack Schuler",role:"Principal",pg:"National Security",dept:"Government Relations",section:"gr",email:"schuler@invariantgr.com",chair:false},
+  {name:"Ryan Doherty",role:"Senior Director",pg:"National Security",dept:"Government Relations",section:"gr",email:"doherty@invariantgr.com",chair:false},
+  {name:"Mariah Carray",role:"Director",pg:"National Security",dept:"Government Relations",section:"gr",email:"carray@invariantgr.com",chair:false},
+  {name:"Jessica Dickson",role:"Director",pg:"National Security",dept:"Government Relations",section:"gr",email:"dickson@invariantgr.com",chair:false},
+  {name:"Leoni Foster",role:"Associate",pg:"National Security",dept:"Government Relations",section:"gr",email:"leoni@invariantgr.com",chair:false},
+  {name:"Katelyn Raffenbeul",role:"Associate",pg:"National Security",dept:"Government Relations",section:"gr",email:"raffenbeul@invariantgr.com",chair:false},
+  {name:"Joel Richard",role:"Vice President",pg:"Technology & Competition",dept:"Government Relations",section:"gr",email:"richard@invariantgr.com",chair:true},
+  {name:"Jason Goldman",role:"Principal",pg:"Technology & Competition",dept:"Government Relations",section:"gr",email:"goldman@invariantgr.com",chair:false},
+  {name:"Halie Craig",role:"Senior Director",pg:"Technology & Competition",dept:"Government Relations",section:"gr",email:"craig@invariantgr.com",chair:false},
+  {name:"Jennifer Haynes",role:"Senior Director",pg:"Technology & Competition",dept:"Government Relations",section:"gr",email:"haynes@invariantgr.com",chair:false},
+  {name:"Sean Sweeney",role:"Director",pg:"Technology & Competition",dept:"Government Relations",section:"gr",email:"sweeney@invariantgr.com",chair:false},
+  {name:"Jonny Montano",role:"Senior Manager",pg:"Technology & Competition",dept:"Government Relations",section:"gr",email:"montano@invariantgr.com",chair:false},
+  {name:"Madison Baker",role:"Manager",pg:"Technology & Competition",dept:"Government Relations",section:"gr",email:"madison@invariantgr.com",chair:false},
+  {name:"Damen Alexander",role:"Senior Associate",pg:"Energy/Environment",dept:"Government Relations",section:"gr",email:"alexander@invariantgr.com",chair:false},
+  {name:"Anthony D'Alessio",role:"Associate",pg:"Energy/Environment",dept:"Government Relations",section:"gr",email:"dalessio@invariantgr.com",chair:false},
+  {name:"Tressel Stone",role:"Associate",pg:"Technology & Competition",dept:"Government Relations",section:"gr",email:"stone@weareinvariant.com",chair:false},
+  {name:"Caroline Surratt",role:"Associate",pg:"Technology & Competition",dept:"Government Relations",section:"gr",email:"surratt@invariantgr.com",chair:false},
+  {name:"Drew Griffin",role:"Principal",pg:"Health Care",dept:"Government Relations",section:"gr",email:"griffin@invariantgr.com",chair:true},
+  {name:"Matthew Fery",role:"Principal",pg:"Health Care",dept:"Government Relations",section:"gr",email:"fery@invariantgr.com",chair:false},
+  {name:"Chris Gillott",role:"Principal",pg:"Health Care",dept:"Government Relations",section:"gr",email:"gillott@invariantgr.com",chair:false},
+  {name:"Jeff Lungren",role:"Principal",pg:"Health Care",dept:"Government Relations",section:"gr",email:"lungren@invariantgr.com",chair:false},
+  {name:"Steve Weyler",role:"Senior Director",pg:"Health Care",dept:"Government Relations",section:"gr",email:"weyler@invariantgr.com",chair:false},
+  {name:"Jill Courtney",role:"Senior Associate",pg:"Health Care",dept:"Government Relations",section:"gr",email:"courtney@invariantgr.com",chair:false},
+  {name:"Mary Keden",role:"Associate",pg:"Health Care",dept:"Government Relations",section:"gr",email:"keden@invariantgr.com",chair:false},
+  {name:"Jordan Thomas",role:"Associate",pg:"Health Care",dept:"Government Relations",section:"gr",email:"thomas@invariantgr.com",chair:false},
+  {name:"Landon Stropko",role:"Senior Vice President",pg:"Energy/Environment",dept:"Government Relations",section:"gr",email:"stropko@invariantgr.com",chair:true},
+  {name:"Doug Dziak",role:"Principal",pg:"Energy/Environment",dept:"Government Relations",section:"gr",email:"dziak@invariantgr.com",chair:false},
+  {name:"Logan Hollers",role:"Principal",pg:"Energy/Environment",dept:"Government Relations",section:"gr",email:"hollers@invariantgr.com",chair:false},
+  {name:"Annie D'Amato",role:"Senior Director",pg:"Energy/Environment",dept:"Government Relations",section:"gr",email:"damato@invariantgr.com",chair:false},
+  {name:"Jared Soncrant",role:"Director",pg:"Energy/Environment",dept:"Government Relations",section:"gr",email:"soncrant@invariantgr.com",chair:false},
+  {name:"Max Whitcomb",role:"Senior Manager",pg:"Energy/Environment",dept:"Government Relations",section:"gr",email:"whitcomb@invariantgr.com",chair:false},
+  {name:"Damian Ortega",role:"Manager",pg:"Energy/Environment",dept:"Government Relations",section:"gr",email:"ortega@invariantgr.com",chair:false},
+  {name:"Lucas Lovekin",role:"Senior Associate",pg:"Energy/Environment",dept:"Government Relations",section:"gr",email:"lovekin@invariantgr.com",chair:false},
+  {name:"Maggie McInerney",role:"Associate",pg:"Energy/Environment",dept:"Government Relations",section:"gr",email:"mcinerney@invariantgr.com",chair:false},
+  {name:"Tim Martin",role:"Vice President",pg:"Transportation & Infrastructure",dept:"Government Relations",section:"gr",email:"martin@invariantgr.com",chair:true},
+  {name:"Joe Bushong",role:"Principal",pg:"Transportation & Infrastructure",dept:"Government Relations",section:"gr",email:"bushong@invariantgr.com",chair:false},
+  {name:"Lane Coberly",role:"Manager",pg:"Transportation & Infrastructure",dept:"Government Relations",section:"gr",email:"coberly@invariantgr.com",chair:false},
+  {name:"Belle Broll",role:"Associate",pg:"Transportation & Infrastructure",dept:"Government Relations",section:"gr",email:"broll@invariantgr.com",chair:false},
+  {name:"Ryan Figus",role:"Associate",pg:"Transportation & Infrastructure",dept:"Government Relations",section:"gr",email:"figus@invariantgr.com",chair:false},
+  {name:"Ken Barbic",role:"Principal",pg:"Food/Agriculture",dept:"Government Relations",section:"gr",email:"barbic@invariantgr.com",chair:true},
+  {name:"Anne MacMillan",role:"Executive Vice President",pg:"Food/Agriculture",dept:"Government Relations",section:"gr",email:"macmillan@invariantgr.com",chair:false},
+  {name:"Jordan Bonfitto",role:"Director",pg:"Food/Agriculture",dept:"Government Relations",section:"gr",email:"bonfitto@invariantgr.com",chair:false},
+  {name:"Will Sitton",role:"Senior Manager",pg:"Food/Agriculture",dept:"Government Relations",section:"gr",email:"sitton@invariantgr.com",chair:false},
+  {name:"Alexis Bass",role:"Senior Associate",pg:"Food/Agriculture",dept:"Government Relations",section:"gr",email:"bass@invariantgr.com",chair:false},
+  {name:"Emerson Houser",role:"Senior Associate",pg:"Food/Agriculture",dept:"Government Relations",section:"gr",email:"houser@invariantgr.com",chair:false},
+  {name:"Mary Beth Stanton",role:"Senior Vice President",pg:"Consumer Products/Trade Associations",dept:"Government Relations",section:"gr",email:"stanton@invariantgr.com",chair:true},
+  {name:"Kenny Roberts",role:"Principal",pg:"Consumer Products/Trade Associations",dept:"Government Relations",section:"gr",email:"roberts@invariantgr.com",chair:false},
+  {name:"Ashley O'Sullivan",role:"Principal",pg:"Health Care",dept:"Government Relations",section:"gr",email:"osullivan@invariantgr.com",chair:false},
+  {name:"Marcus Davis-Mercer",role:"Senior Associate",pg:"Consumer Products/Trade Associations",dept:"Government Relations",section:"gr",email:"davismercer@invariantgr.com",chair:false},
+  {name:"Maia Hunt Estes",role:"Senior Vice President",pg:"Government Relations",dept:"Government Relations",section:"gr_lead",email:"estes@invariantgr.com",chair:false},
+    {name:"Eric Rosen",role:"Executive Vice President",pg:"PG Lead",dept:"Government Relations",section:"gr_lead",email:"rosen@invariantgr.com",chair:false},
+  {name:"Nicole Venable",role:"Senior Vice President",pg:"Government Relations",dept:"Government Relations",section:"gr_lead",email:"venable@invariantgr.com",chair:false},
+  {name:"Jim Durrett",role:"Principal",pg:"Government Relations",dept:"Government Relations",section:"gr_lead",email:"durrett@invariantgr.com",chair:false},
+  {name:"Claire Shackleford",role:"Senior Associate",pg:"Government Relations",dept:"Government Relations",section:"gr_lead",email:"shackleford@invariantgr.com",chair:false},
+  {name:"Steve Black",role:"Chief Financial Officer",pg:"Accounting",dept:"Business Operations",section:"biz_ops",email:"black@invariantgr.com",chair:false},
+  {name:"Erin Gentry",role:"Chief Operating Officer",pg:"Operations",dept:"Business Operations",section:"biz_ops",email:"gentry@invariantgr.com",chair:false},
+  {name:"Laura Joshua",role:"Chief Administrative Officer",pg:"Operations",dept:"Business Operations",section:"biz_ops",email:"joshua@invariantgr.com",chair:false},
+  {name:"Paul Nemetz",role:"Chief of Staff",pg:"Executive Team",dept:"Business Operations",section:"biz_ops",email:"nemetz@invariantgr.com",chair:false},
+  {name:"Caroline Swann",role:"Chief People Officer",pg:"Human Resources",dept:"Business Operations",section:"biz_ops",email:"swann@invariantgr.com",chair:false},
+  {name:"Tom Keefe",role:"Senior Director",pg:"Operations",dept:"Business Operations",section:"biz_ops",email:"keefe@invariantgr.com",chair:false},
+  {name:"Morgan Baker",role:"Director",pg:"Data and Analytics",dept:"Business Operations",section:"biz_ops",email:"morgan@invariantgr.com",chair:false},
+  {name:"Janie Blanco Joyce",role:"Director",pg:"Operations",dept:"Business Operations",section:"biz_ops",email:"blanco@invariantgr.com",chair:false},
+  {name:"Emma Perron",role:"Director",pg:"Operations",dept:"Business Operations",section:"biz_ops",email:"perron@invariantgr.com",chair:false},
+  {name:"Domenick Zingaro",role:"Finance Director",pg:"Accounting",dept:"Business Operations",section:"biz_ops",email:"zingaro@invariantgr.com",chair:false},
+  {name:"Ada Ba",role:"Manager",pg:"Operations",dept:"Business Operations",section:"biz_ops",email:"ba@invariantgr.com",chair:false},
+  {name:"Nathalie Garcia",role:"Manager, Scheduling and Strategic Planning",pg:"Executive Team",dept:"Business Operations",section:"biz_ops",email:"garcia@invariantgr.com",chair:false},
+  {name:"Evan Smith",role:"Manager",pg:"Operations",dept:"Business Operations",section:"biz_ops",email:"evan@invariantgr.com",chair:false},
+  {name:"Vontia Witherspoon",role:"Manager",pg:"Operations",dept:"Business Operations",section:"biz_ops",email:"witherspoon@invariantgr.com",chair:false},
+  {name:"Emma Centeno",role:"Senior Associate",pg:"Human Resources",dept:"Business Operations",section:"biz_ops",email:"centeno@invariantgr.com",chair:false},
+  {name:"Linda Flowers",role:"Senior Staff Accountant",pg:"Accounting",dept:"Business Operations",section:"biz_ops",email:"flowers@invariantgr.com",chair:false},
+  {name:"Camille Perrault",role:"Senior Associate, Scheduling",pg:"Executive Team",dept:"Business Operations",section:"biz_ops",email:"perrault@invariantgr.com",chair:false},
+  {name:"Sophia Akwera",role:"Associate",pg:"Operations",dept:"Business Operations",section:"biz_ops",email:"akwera@invariantgr.com",chair:false},
+  {name:"Adriana Mendez",role:"Associate",pg:"Operations",dept:"Business Operations",section:"biz_ops",email:"mendez@invariantgr.com",chair:false},
+  {name:"Perlyn Richards",role:"Staff Accountant",pg:"Accounting",dept:"Business Operations",section:"biz_ops",email:"richards@invariantgr.com",chair:false},
+  {name:"Debra DeShong",role:"Senior Vice President",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"deshong@invariantgr.com",chair:false},
+  {name:"Matt Gallagher",role:"Senior Vice President",pg:"PG Lead",dept:"Communications",section:"comms",email:"gallagher@invariantgr.com",chair:false},
+  {name:"Kate Bennett",role:"Vice President - Brand Strategy and External Affairs",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"bennett@invariantgr.com",chair:false},
+  {name:"Claude Chafin",role:"Vice President",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"chafin@invariantgr.com",chair:false},
+  {name:"Jennifer Drogus",role:"Vice President",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"drogus@weareinvariant.com",chair:false},
+  {name:"Susan Lagana",role:"Vice President",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"lagana@invariantgr.com",chair:false},
+  {name:"Brianne Nurick",role:"Vice President",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"nurick@invariantgr.com",chair:false},
+  {name:"Jenny Werwa",role:"Vice President",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"werwa@invariantgr.com",chair:false},
+  {name:"Amanda Bailey",role:"Principal",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"bailey@invariantgr.com",chair:false},
+  {name:"Rebecca Fannin",role:"Principal",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"fannin@invariantgr.com",chair:false},
+  {name:"Angela Morris",role:"Principal",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"morris@invariantgr.com",chair:false},
+  {name:"Kevin Boland",role:"Senior Director",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"boland@invariantgr.com",chair:false},
+  {name:"Rachel Huxley-Cohen",role:"Senior Director",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"huxleycohen@invariantgr.com",chair:false},
+  {name:"Caroline Ponseti",role:"Senior Director",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"ponseti@invariantgr.com",chair:false},
+  {name:"Meredith Stasa",role:"Senior Director",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"stasa@invariantgr.com",chair:false},
+  {name:"Roger Cabiness",role:"Director",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"cabiness@invariantgr.com",chair:false},
+  {name:"Ana Fernández",role:"Director",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"fernandez@weareinvariant.com",chair:false},
+  {name:"Rachel Leake",role:"Art Director",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"leake@invariantgr.com",chair:false},
+  {name:"Maya Thompson",role:"Digital Content Strategist",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"thompson@invariantgr.com",chair:false},
+  {name:"Travis Tritten",role:"Director",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"tritten@invariantgr.com",chair:false},
+  {name:"Jacqie Boggess",role:"Senior Manager",pg:"Communications",dept:"Communications",section:"comms",email:"boggess@invariantgr.com",chair:false},
+  {name:"Maddie Buschang",role:"Senior Manager",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"buschang@invariantgr.com",chair:false},
+  {name:"Shira Golub",role:"Senior Manager, Marketing & Strategic Communications",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"golub@invariantgr.com",chair:false},
+  {name:"Elizabeth Racke",role:"Senior Manager",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"racke@invariantgr.com",chair:false},
+  {name:"Anna Shelby",role:"Senior Manager",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"shelby@invariantgr.com",chair:false},
+  {name:"Nathan Yanez",role:"Senior Manager",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"yanez@invariantgr.com",chair:false},
+  {name:"Shruti Bhatt",role:"Manager",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"bhatt@invariantgr.com",chair:false},
+  {name:"Sophia Daoud",role:"Manager",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"daoud@invariantgr.com",chair:false},
+  {name:"Alex Edwards",role:"Manager",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"edwards@invariantgr.com",chair:false},
+  {name:"Zoe Handy",role:"Manager",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"handy@invariantgr.com",chair:false},
+  {name:"Alaya Hardy",role:"Manager",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"hardy@invariantgr.com",chair:false},
+  {name:"Mae McGrath",role:"Manager",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"mcgrath@invariantgr.com",chair:false},
+  {name:"Jacob Randall-Bodman",role:"Manager",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"randallbodman@invariantgr.com",chair:false},
+  {name:"Blair Wilson",role:"Manager",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"wilson@invariantgr.com",chair:false},
+  {name:"Isabella Anderson",role:"Senior Associate",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"anderson@invariantgr.com",chair:false},
+  {name:"Sally Blodgett",role:"Senior Associate",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"blodgett@invariantgr.com",chair:false},
+  {name:"Matthew Cox",role:"Senior Associate",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"cox@invariantgr.com",chair:false},
+  {name:"Antoine Fagan",role:"Senior Designer",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"fagan@invariantgr.com",chair:false},
+  {name:"Gabby Karber",role:"Senior Associate",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"karber@invariantgr.com",chair:false},
+  {name:"Lucy Karlin",role:"Senior Associate",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"karlin@invariantgr.com",chair:false},
+  {name:"Anne Patterson",role:"Senior Associate",pg:"Communications",dept:"Communications",section:"comms",email:"patterson@invariantgr.com",chair:false},
+  {name:"Megan Phillips",role:"Senior Associate",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"phillips@invariantgr.com",chair:false},
+  {name:"Chloe Slayter",role:"Senior Associate",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"slayter@invariantgr.com",chair:false},
+  {name:"Sam Upah",role:"Senior Associate",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"upah@invariantgr.com",chair:false},
+  {name:"Katie Azelby",role:"Associate",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"azelby@invariantgr.com",chair:false},
+  {name:"Skye Bowie",role:"Associate",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"bowie@invariantgr.com",chair:false},
+  {name:"Charlotte Cox",role:"Associate",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"charlotte@invariantgr.com",chair:false},
+  {name:"Parama Ghatak",role:"Associate",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"ghatak@invariantgr.com",chair:false},
+  {name:"Mackenzie Naylor",role:"Associate",pg:"Communications",dept:"Communications",section:"comms",email:"naylor@invariantgr.com",chair:false},
+  {name:"Ji Reichle",role:"Associate",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"reichle@invariantgr.com",chair:false},
+  {name:"Tim Ryan",role:"Associate",pg:"Communications & Public Affairs",dept:"Communications",section:"comms",email:"ryan@invariantgr.com",chair:false},
 ];
 
 const MEETINGS = [
@@ -385,7 +457,7 @@ const MEETINGS = [
   {id:173,date:"2026-01-14",client:"Circle",          pg:"EP",         office:"Sen. Cory Booker (D-NJ)",                         chamber:"Senate",party:"D",govStaff:"Dante",                                                    govEmails:""},
   {id:174,date:"2026-01-27",client:"Kraken",          pg:"EP",         office:"Sen. Mark Warner (D-VA)",                         chamber:"Senate",party:"D",govStaff:"",                                                         govEmails:""},
   {id:175,date:"2026-01-28",client:"Kraken",          pg:"EP",         office:"Sen. Angela Alsobrooks (D-MD)",                   chamber:"Senate",party:"D",govStaff:"",                                                         govEmails:""},
-  // \u2500\u2500 New from full sweep (May 21, 2026) \u2500\u2500
+  // \u2500\u2500 New from full sweep (Last Updated: May 28, 2026) \u2500\u2500
   {id:158,date:"2026-04-22",client:"AALA",            pg:"EP",         office:"White House Office of Public Liaison",              chamber:"Agency",party:"", govStaff:"John Guido; Jordan Wood",                                     govEmails:"John.P.Guido@who.eop.gov; Jordan.A.Wood@who.eop.gov"},
   {id:159,date:"2026-04-22",client:"AALA",            pg:"EP",         office:"Department of Transportation",                     chamber:"Agency",party:"", govStaff:"Benjamin Siegrist; Peter Simshauser; John Burdette; Miles Bolin; Tamica Dixon",govEmails:"benjamin.siegrist@dot.gov; peter.simshauser@dot.gov; john.burdette@dot.gov; miles.bolin@dot.gov; tamica.dixon@dot.gov"},
   {id:160,date:"2026-04-22",client:"AALA",            pg:"EP",         office:"Senate Commerce Committee (Minority Staff)",        chamber:"Senate",party:"D",govStaff:"Sarah Farkas; Michael Davisson; Rachel Boose",                govEmails:"Sarah_Farkas@commerce.senate.gov; Michael_Davisson@commerce.senate.gov; Rachel_Boose@commerce.senate.gov"},
@@ -564,7 +636,7 @@ function mStats(){const m=MEETINGS;return{total:m.length,clients:uniq(m.map(x=>x
 function sparklineH(c){const vals=[c.q2_2025,c.q3_2025,c.q4_2025,c.q1_2026];const max=Math.max(...vals,1);return`<div class="sparkline-wrap">${vals.map((v,i)=>`<div class="spark-bar${i===3?' current':''}" style="height:${Math.max((v/max)*22,2)}px;"></div>`).join('')}</div>`;}
 
 function renderMeetings(){const s=mStats();const filtered=getFiltered();const allClients=uniq(MEETINGS.map(m=>m.client));const clientCounts=allClients.map(c=>({name:c,count:MEETINGS.filter(m=>m.client===c).length})).sort((a,b)=>b.count-a.count);const maxC=Math.max(...clientCounts.map(c=>c.count),1);const sPct=s.total?Math.round(s.senate/s.total*100):0;const hPct=s.total?Math.round(s.house/s.total*100):0;const aPct=s.total?Math.round(s.agency/s.total*100):0;const rPct=s.total?Math.round(s.r/s.total*100):0;const dPct=s.total?Math.round(s.d/s.total*100):0;let tb='';if(!filtered.length)tb='<tr><td colspan="7" class="no-results">No meetings match your filters.</td></tr>';else if(state.tab==='by-client')tb=groupedRows(filtered,'client');else if(state.tab==='by-office')tb=groupedRows(filtered,'office');else tb=filtered.map(meetingRowH).join('');return`<div class="stats-bar">${[['Total',s.total,'meetings YTD'],['Senate',s.senate,''],['House',s.house,''],['Agency',s.agency,''],['R / D',s.r+' / '+s.d,'']].map(([l,v,sub])=>`<div class="stat"><div class="stat-accent"></div><div class="stat-label">${l}</div><div class="stat-val">${v}</div><div class="stat-sub">${sub}</div></div>`).join('')}</div><div class="main"><div class="visual-breakdown"><div class="chart-card"><div class="chart-title" style="margin-bottom:12px;">By Chamber</div><div class="chamber-bar"><div style="width:${sPct}%;background:#3D2D7A;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;letter-spacing:.02em;">${sPct>12?'Senate':''}</div><div style="width:${hPct}%;background:#7A4010;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;letter-spacing:.02em;">${hPct>12?'House':''}</div><div style="width:${aPct}%;background:#2D5A27;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;letter-spacing:.02em;">${aPct>8?'Agency':''}</div></div>${[['Senate',s.senate,sPct,'#3D2D7A'],['House',s.house,hPct,'#7A4010'],['Agency',s.agency,aPct,'#2D5A27']].map(([label,count,pct,color])=>`<div style="display:flex;align-items:center;gap:10px;margin-bottom:9px;"><div style="width:10px;height:10px;border-radius:2px;background:${color};flex-shrink:0;"></div><div style="font-size:12px;font-weight:500;min-width:55px;">${label}</div><div style="flex:1;background:var(--blue-light);border-radius:3px;height:7px;overflow:hidden;"><div style="width:${pct}%;height:100%;background:${color};border-radius:3px;transition:width .3s;"></div></div><div style="font-size:12px;font-weight:600;font-family:'DM Mono',monospace;min-width:28px;text-align:right;">${count}</div><div style="font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;min-width:34px;text-align:right;">${pct}%</div></div>`).join('')}</div><div class="chart-card"><div class="chart-title" style="margin-bottom:12px;">By Party</div><div class="party-cards"><div class="party-card pcard-r"><div class="pcard-label" style="color:var(--r-text);">Republican</div><div class="pcard-num" style="color:var(--r-text);">${s.r}</div><div class="pcard-pct" style="color:var(--r-text);">${rPct}% of meetings</div></div><div class="party-card pcard-d"><div class="pcard-label" style="color:var(--d-text);">Democrat</div><div class="pcard-num" style="color:var(--d-text);">${s.d}</div><div class="pcard-pct" style="color:var(--d-text);">${dPct}% of meetings</div></div></div><div class="split-bar"><div style="width:${rPct}%;background:#C0403F;"></div><div style="width:${dPct}%;background:#3A7ACC;"></div><div style="flex:1;background:#4E9A43;"></div></div><div style="display:flex;gap:16px;flex-wrap:wrap;">${[['#C0403F','R',s.r,'Republican'],['#3A7ACC','D',s.d,'Democrat'],['#4E9A43','-',s.agency,'Agency']].map(([c,abbr,n,full])=>`<div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);"><div style="width:8px;height:8px;border-radius:2px;background:${c};flex-shrink:0;"></div>${full}<span style="font-weight:700;color:var(--text);margin-left:3px;font-family:'DM Mono',monospace;">${n}</span></div>`).join('')}</div></div></div><div class="chart-card" style="margin-bottom:20px;"><div class="chart-title" style="margin-bottom:14px;">Meetings by client</div><div style="columns:2;column-gap:24px;">${clientCounts.map(c=>`<div class="bar-row" style="break-inside:avoid;"><div class="bar-name" title="${c.name}">${c.name}</div><div class="bar-track"><div class="bar-fill" style="width:${(c.count/maxC)*100}%;background:var(--navy);"></div></div><div class="bar-count">${c.count}</div></div>`).join('')}</div></div><div class="tabs">${[['all','All meetings'],['by-client','By client'],['by-office','By office']].map(([k,l])=>`<div class="tab${state.tab===k?' active':''}" onclick="setState({tab:'${k}'})">${l}</div>`).join('')}</div><div class="controls"><div class="search-wrap"><span class="search-icon">&#128269;</span><input type="text" placeholder="Search offices, clients, staff&#8230;" value="${state.search}" oninput="setState({search:this.value})"/></div><select onchange="setState({filterClient:this.value})"><option value="">All clients</option>${uniq(MEETINGS.map(m=>m.client)).map(c=>`<option value="${c}"${state.filterClient===c?' selected':''}>${c}</option>`).join('')}</select><select onchange="setState({filterChamber:this.value})"><option value="">All chambers</option>${['House','Senate','Agency'].map(c=>`<option value="${c}"${state.filterChamber===c?' selected':''}>${c}</option>`).join('')}</select><select onchange="setState({filterParty:this.value})"><option value="">Both parties</option><option value="R"${state.filterParty==='R'?' selected':''}>Republican</option><option value="D"${state.filterParty==='D'?' selected':''}>Democrat</option></select><button class="clear-btn" onclick="setState({search:'',filterClient:'',filterChamber:'',filterParty:''})">Clear</button></div><div class="table-wrap"><table><thead><tr>${thH('date','Date','70px')}${thH('client','Client','120px')}${thH('office','Office')}${thH('chamber','Chamber','85px')}${thH('party','Party','60px')}${thH('govStaff','Gov. Staff','175px')}<th style="width:210px;">Gov. Email(s)</th></tr></thead><tbody>${tb}</tbody></table><div class="results-count">${filtered.length} of ${MEETINGS.length} meetings &#183; Synced ${SYNC_DATE}</div></div></div>`;}
-function renderClients(){const allLeads=uniq(CLIENTS.map(c=>c.lead).filter(Boolean));const allCROs=uniq(CLIENTS.map(c=>c.cro).filter(Boolean));let clients=CLIENTS.filter(c=>{if(state.filterLead&&c.lead!==state.filterLead)return false;if(state.filterCRO&&c.cro!==state.filterCRO)return false;if(state.cSearch){const q=state.cSearch.toLowerCase();if(!c.name.toLowerCase().includes(q)&&!(c.lead||'').toLowerCase().includes(q)&&!(c.cro||'').toLowerCase().includes(q)&&!(c.team||'').toLowerCase().includes(q))return false;}return true;}).sort((a,b)=>{const av=a[state.cSort]||0,bv=b[state.cSort]||0;if(typeof av==='number')return state.cDir==='asc'?av-bv:bv-av;return state.cDir==='asc'?String(av).localeCompare(String(bv)):String(bv).localeCompare(String(av));});const totalQ1=CLIENTS.reduce((s,c)=>s+c.q1_2026,0);return`<div class="stats-bar">${[['Total clients',CLIENTS.length,'per PG chart'],['Q1 2026 revenue','$'+Math.round(totalQ1/1000)+'K','LDA reported'],['Client leads',allLeads.length,'unique'],['CROs',allCROs.length,'unique'],['Source','Spring 2026','EPPG Chart']].map(([l,v,sub])=>`<div class="stat"><div class="stat-accent"></div><div class="stat-label">${l}</div><div class="stat-val">${v}</div><div class="stat-sub">${sub}</div></div>`).join('')}</div><div class="main"><div class="controls"><div class="search-wrap"><span class="search-icon">\u1f50d</span><input type="text" placeholder="Search clients, leads, team\u2026" value="${state.cSearch}" oninput="setState({cSearch:this.value})"/></div><select onchange="setState({filterCRO:this.value})"><option value="">All CROs</option>${allCROs.map(c=>`<option value="${c}"${state.filterCRO===c?' selected':''}>${c}</option>`).join('')}</select><select onchange="setState({filterLead:this.value})"><option value="">All leads</option>${allLeads.map(l=>`<option value="${l}"${state.filterLead===l?' selected':''}>${l}</option>`).join('')}</select><select onchange="setState({cSort:this.value,cDir:'desc'})"><option value="name">Sort: A\u2013Z</option><option value="q1_2026">Sort: Q1 Revenue</option><option value="lead">Sort: Lead</option><option value="cro">Sort: CRO</option></select><button class="clear-btn" onclick="setState({cSearch:'',filterLead:'',filterCRO:''})">Clear filters</button></div><div class="client-grid">${clients.map(c=>{const mtgs=meetingsForClient(c.name);return`<div class="client-card"><div class="cc-header"><div class="cc-name">${c.name}</div><div class="cc-revenue">${fmtMoney(c.q1_2026)}<span style="font-size:10px;color:var(--muted);font-weight:400"> /qtr</span></div></div><div class="cc-row"><div class="cc-label">CRO</div><div class="cc-val">${c.cro||'\u2014'}</div></div><div class="cc-row"><div class="cc-label">Lead</div><div class="cc-val">${c.lead||'\u2014'}</div></div><div class="cc-row"><div class="cc-label">Team</div><div class="cc-val">${c.team||'\u2014'}</div></div><div class="cc-row"><div class="cc-label">Associate</div><div class="cc-val">${c.associate||'\u2014'}</div></div><div class="cc-footer"><div class="cc-meetings">2026 meetings: <span>${mtgs}</span></div>${sparklineH(c)}</div></div>`;}).join('')}</div></div>`;}
+function renderClients(){const allLeads=uniq(CLIENTS.map(c=>c.lead).filter(Boolean));const allCROs=uniq(CLIENTS.map(c=>c.cro).filter(Boolean));let clients=CLIENTS.filter(c=>{if(state.filterLead&&c.lead!==state.filterLead)return false;if(state.filterCRO&&c.cro!==state.filterCRO)return false;if(state.cSearch){const q=state.cSearch.toLowerCase();if(!c.name.toLowerCase().includes(q)&&!(c.lead||'').toLowerCase().includes(q)&&!(c.cro||'').toLowerCase().includes(q)&&!(c.team||'').toLowerCase().includes(q))return false;}return true;}).sort((a,b)=>{const av=a[state.cSort]||0,bv=b[state.cSort]||0;if(typeof av==='number')return state.cDir==='asc'?av-bv:bv-av;return state.cDir==='asc'?String(av).localeCompare(String(bv)):String(bv).localeCompare(String(av));});const totalQ1=CLIENTS.reduce((s,c)=>s+c.q1_2026,0);return`<div class="stats-bar">${[['Total clients',CLIENTS.length,'per PG chart'],['Q1 2026 revenue','$'+Math.round(totalQ1/1000)+'K','LDA reported'],['Client leads',allLeads.length,'unique'],['CROs',allCROs.length,'unique'],['Source','Spring 2026','EPPG Chart']].map(([l,v,sub])=>`<div class="stat"><div class="stat-accent"></div><div class="stat-label">${l}</div><div class="stat-val">${v}</div><div class="stat-sub">${sub}</div></div>`).join('')}</div><div class="main"><div class="controls"><div class="search-wrap"><span class="search-icon">&#128269;</span><input type="text" placeholder="Search clients, leads, team&hellip;" value="${state.cSearch}" oninput="setState({cSearch:this.value})"/></div><select onchange="setState({filterCRO:this.value})"><option value="">All CROs</option>${allCROs.map(c=>`<option value="${c}"${state.filterCRO===c?' selected':''}>${c}</option>`).join('')}</select><select onchange="setState({filterLead:this.value})"><option value="">All leads</option>${allLeads.map(l=>`<option value="${l}"${state.filterLead===l?' selected':''}>${l}</option>`).join('')}</select><select onchange="setState({cSort:this.value,cDir:'desc'})"><option value="name">Sort: A\u2013Z</option><option value="q1_2026">Sort: Q1 Revenue</option><option value="lead">Sort: Lead</option><option value="cro">Sort: CRO</option></select><button class="clear-btn" onclick="setState({cSearch:'',filterLead:'',filterCRO:''})">Clear filters</button></div><div class="client-grid">${clients.map(c=>{const mtgs=meetingsForClient(c.name);return`<div class="client-card"><div class="cc-header"><div class="cc-name">${c.name}</div><div class="cc-revenue">${fmtMoney(c.q1_2026)}<span style="font-size:10px;color:var(--muted);font-weight:400"> /qtr</span></div></div><div class="cc-row"><div class="cc-label">CRO</div><div class="cc-val">${c.cro||'\u2014'}</div></div><div class="cc-row"><div class="cc-label">Lead</div><div class="cc-val">${c.lead||'\u2014'}</div></div><div class="cc-row"><div class="cc-label">Team</div><div class="cc-val">${c.team||'\u2014'}</div></div><div class="cc-row"><div class="cc-label">Associate</div><div class="cc-val">${c.associate||'\u2014'}</div></div><div class="cc-footer"><div class="cc-meetings">2026 meetings: <span>${mtgs}</span></div>${sparklineH(c)}</div></div>`;}).join('')}</div></div>`;}
 
 function renderRevenue(){const quarters=['q2_2025','q3_2025','q4_2025','q1_2026'];const qLabels=['Q2 2025','Q3 2025','Q4 2025','Q1 2026'];const totals=quarters.map(q=>CLIENTS.reduce((s,c)=>s+(c[q]||0),0));const sorted=[...CLIENTS].sort((a,b)=>{const av=a[state.revSort]||0,bv=b[state.revSort]||0;return state.revDir==='asc'?av-bv:bv-av;});const maxQ1=Math.max(...CLIENTS.map(c=>c.q1_2026),1);const svgW=280,svgH=120,padL=10,padR=10,padT=30,padB=24;const plotW=svgW-padL-padR,plotH=svgH-padT-padB;const maxT=Math.max(...totals,1);const pts=totals.map((t,i)=>({x:padL+(i/(totals.length-1))*plotW,y:padT+(1-t/maxT)*plotH,val:t}));const cubicPath=pts.map((p,i)=>{if(i===0)return'M'+p.x.toFixed(1)+','+p.y.toFixed(1);const cpx1=(pts[i-1].x+(p.x-pts[i-1].x)*0.45).toFixed(1);const cpx2=(p.x-(p.x-pts[i-1].x)*0.45).toFixed(1);return'C'+cpx1+','+pts[i-1].y.toFixed(1)+' '+cpx2+','+p.y.toFixed(1)+' '+p.x.toFixed(1)+','+p.y.toFixed(1);}).join(' ');const areaPath=cubicPath+' L'+pts[pts.length-1].x.toFixed(1)+','+(padT+plotH).toFixed(1)+' L'+pts[0].x.toFixed(1)+','+(padT+plotH).toFixed(1)+' Z';const gridLines=[0,0.25,0.5,0.75,1].map(v=>'<line x1="'+padL+'" y1="'+(padT+plotH*v).toFixed(1)+'" x2="'+(padL+plotW)+'" y2="'+(padT+plotH*v).toFixed(1)+'" stroke="#E4DDD6" stroke-width="0.5"/>').join('');const dots=pts.map((p,i)=>'<circle cx="'+p.x.toFixed(1)+'" cy="'+p.y.toFixed(1)+'" r="5" fill="'+(i===pts.length-1?'#981B1E':'#1B2A4A')+'" stroke="white" stroke-width="2"/>'+'<text x="'+p.x.toFixed(1)+'" y="'+(p.y-12).toFixed(1)+'" text-anchor="middle" font-size="9" font-family="DM Mono,monospace" fill="'+(i===pts.length-1?'#981B1E':'#1B2A4A')+'" font-weight="700">$'+Math.round(p.val/1000)+'K</text>'+'<text x="'+p.x.toFixed(1)+'" y="'+(padT+plotH+16).toFixed(1)+'" text-anchor="middle" font-size="8.5" font-family="DM Sans,sans-serif" fill="#6B7A8D">'+qLabels[i]+'</text>').join('');const svgChart='<svg width="100%" viewBox="0 0 '+svgW+' '+svgH+'" preserveAspectRatio="none" style="overflow:visible;display:block;"><defs><linearGradient id="revGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1B2A4A" stop-opacity="0.13"/><stop offset="100%" stop-color="#1B2A4A" stop-opacity="0.01"/></linearGradient></defs>'+gridLines+'<path d="'+areaPath+'" fill="url(#revGrad)"/><path d="'+cubicPath+'" fill="none" stroke="#1B2A4A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>'+dots+'</svg>';const latestChange=totals[3]-totals[2];const changeSign=latestChange>=0?'+':'';const changeColor=latestChange>=0?'#2D5A27':'#8B1A1A';return`<div class="stats-bar">${quarters.map((q,i)=>`<div class="stat"><div class="stat-accent"></div><div class="stat-label">${qLabels[i]}</div><div class="stat-val">$${Math.round(totals[i]/1000)}K</div><div class="stat-sub">${i>0?((totals[i]-totals[i-1])>=0?'\u25b2 +':'\u25bc ')+'$'+Math.abs(Math.round((totals[i]-totals[i-1])/1000))+'K vs prior':''}</div></div>`).join('')}<div class="stat"><div class="stat-accent"></div><div class="stat-label">4-Qtr Total</div><div class="stat-val">$${Math.round(CLIENTS.reduce((s,c)=>s+c.q2_2025+c.q3_2025+c.q4_2025+c.q1_2026,0)/1000)}K</div><div class="stat-sub">Q2 2025 \u2013 Q1 2026</div></div></div><div class="main"><div class="charts-row" style="grid-template-columns:3fr 2fr;"><div class="chart-card"><div class="chart-title">Q1 2026 revenue by client</div>${[...CLIENTS].sort((a,b)=>b.q1_2026-a.q1_2026).filter(c=>c.q1_2026>0).map(c=>`<div class="bar-row"><div class="bar-name" title="${c.name}">${c.name}</div><div class="bar-track"><div class="bar-fill" style="width:${(c.q1_2026/maxQ1)*100}%;background:var(--crimson);"></div></div><div class="bar-count">${fmtMoney(c.q1_2026)}</div></div>`).join('')}</div><div class="chart-card"><div class="chart-title" style="margin-bottom:18px;">Quarterly trend</div><div class="svg-chart-wrap">${svgChart}</div><div style="margin-top:16px;padding-top:12px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;"><div style="font-size:11px;color:var(--muted);">Q4 2025 \u2192 Q1 2026</div><div style="font-size:15px;font-weight:700;color:${changeColor};">${changeSign}$${Math.abs(Math.round(latestChange/1000))}K</div></div></div></div><div class="table-wrap"><table><thead><tr>${thH('name','Client','180px','rev')}${thH('cro','CRO','80px','rev')}${thH('lead','Lead','80px','rev')}${thH('q2_2025','Q2 2025','90px','rev')}${thH('q3_2025','Q3 2025','90px','rev')}${thH('q4_2025','Q4 2025','90px','rev')}${thH('q1_2026','Q1 2026','90px','rev')}<th style="width:80px;">Trend</th></tr></thead><tbody>${sorted.map(c=>`<tr><td style="font-weight:500;">${c.name}</td><td>${c.cro||'\u2014'}</td><td>${c.lead||'\u2014'}</td>${['q2_2025','q3_2025','q4_2025','q1_2026'].map(q=>`<td class="td-mono"${q==='q1_2026'?' style="font-weight:600;color:var(--navy);"':''}>${fmtMoney(c[q])}</td>`).join('')}<td>${sparklineH(c)}</td></tr>`).join('')}<tr style="background:var(--cream);font-weight:600;"><td>TOTAL</td><td></td><td></td>${quarters.map(q=>`<td class="td-mono">$${Math.round(totals[quarters.indexOf(q)]/1000)}K</td>`).join('')}<td></td></tr></tbody></table></div></div>`;}
 function renderTopOffices(){const officeCounts={};MEETINGS.forEach(m=>{if(!m.office)return;const k=m.office;if(!officeCounts[k])officeCounts[k]={count:0,chamber:m.chamber,party:m.party,clients:new Set()};officeCounts[k].count++;officeCounts[k].clients.add(m.client);});let all=Object.entries(officeCounts).map(([office,d])=>({office,count:d.count,chamber:d.chamber,party:d.party,clients:[...d.clients]})).sort((a,b)=>b.count-a.count);if(state.topFilter)all=all.filter(o=>o.chamber===state.topFilter);const maxCount=all.length?all[0].count:1;const totalOffices=Object.keys(officeCounts).length;const multiVisit=Object.values(officeCounts).filter(d=>d.count>1).length;const uSenate=Object.values(officeCounts).filter(d=>d.chamber==='Senate').length;const uHouse=Object.values(officeCounts).filter(d=>d.chamber==='House').length;const topName=all[0]?all[0].office.replace(/^(Rep\.|Sen\.)\s/,'').split('(')[0].trim().substring(0,20):'---';return`<div class="stats-bar"><div class="stat"><div class="stat-accent"></div><div class="stat-label">Unique offices</div><div class="stat-val">${totalOffices}</div><div class="stat-sub">visited YTD 2026</div></div><div class="stat"><div class="stat-accent"></div><div class="stat-label">Multi-visit</div><div class="stat-val">${multiVisit}</div><div class="stat-sub">2+ meetings each</div></div><div class="stat"><div class="stat-accent"></div><div class="stat-label">#1 office</div><div class="stat-val">${all[0]?all[0].count:0}</div><div class="stat-sub">${topName}</div></div><div class="stat"><div class="stat-accent"></div><div class="stat-label">Senate</div><div class="stat-val">${uSenate}</div><div class="stat-sub">unique offices</div></div><div class="stat"><div class="stat-accent"></div><div class="stat-label">House</div><div class="stat-val">${uHouse}</div><div class="stat-sub">unique offices</div></div></div><div class="main"><div class="controls"><select onchange="setState({topFilter:this.value})"><option value=""${!state.topFilter?' selected':''}>All chambers</option>${['House','Senate','Agency'].map(c=>`<option value="${c}"${state.topFilter===c?' selected':''}>${c}</option>`).join('')}</select><button class="clear-btn" onclick="setState({topFilter:''})">Clear</button><span style="font-size:12px;color:var(--muted);margin-left:auto;">Top ${Math.min(all.length,30)} of ${all.length} offices${state.topFilter?' \u00b7 '+state.topFilter:''}</span></div><div class="chart-card">${all.slice(0,30).map((o,i)=>`<div class="rank-row"><div class="rank-num">${i+1}</div><div class="rank-office" title="${o.office}">${o.office}</div>${badgeH(o.chamber.toLowerCase(),o.chamber)}&nbsp;${o.party?badgeH(o.party.toLowerCase(),o.party):''}<div class="rank-bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:${Math.round((o.count/maxCount)*100)}%;background:var(--navy);"></div></div></div><div class="rank-count">${o.count}</div><div class="rank-clients">${o.clients.length} client${o.clients.length!==1?'s':''}</div></div>`).join('')}</div></div>`;}
@@ -653,41 +725,207 @@ function renderEPOrg(){
   return h;
 }
 function renderFirmwideOrg(){
-  var order=['Economic Policy','National Security','Technology & Competition','Health Care','Energy/Environment','Transportation & Infrastructure','Food/Agriculture','Consumer Products/Trade Associations'];
-  var labels={'Consumer Products/Trade Associations':'Consumer Products','Transportation & Infrastructure':'Transportation','Energy/Environment':'Energy & Environment'};
-  var h='<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;">';
-  order.forEach(function(pg){
-    var members=STAFF.filter(function(s){return s.pg===pg;});
-    if(!members.length)return;
-    var label=labels[pg]||pg;
-    h+='<div style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px;">';
-    h+='<div style="font-size:12px;font-weight:700;color:var(--navy);text-align:center;padding:6px 0;border-bottom:2px solid var(--crimson);margin-bottom:8px;">'+label+'</div>';
-    members.forEach(function(s){h+=orgCard(s,false);});
+  // ── Utility ──
+  function box(name, role, highlight, small){
+    var bg=highlight?'var(--crimson)':'var(--navy-mid)';
+    var sz=small?'11px':'12px';
+    var pd=small?'7px 10px':'9px 12px';
+    return '<div style="background:'+bg+';color:#fff;border-radius:5px;padding:'+pd+';text-align:center;font-size:'+sz+';line-height:1.3;min-width:90px;">'
+      +'<div style="font-weight:600;">'+name+'</div>'
+      +'<div style="font-size:9px;opacity:.75;margin-top:2px;">'+role+'</div>'
+      +'</div>';
+  }
+  function connector(){
+    return '<div style="width:2px;height:20px;background:var(--border);margin:0 auto;"></div>';
+  }
+  function hline(cols){
+    return '<div style="height:2px;background:var(--border);margin:0 auto;width:'+(cols*120)+'px;max-width:100%;"></div>';
+  }
+
+  var ceo=STAFF.find(function(s){return s.section==='leadership';});
+  var csuite=STAFF.filter(function(s){return s.section==='biz_ops' && s.role.indexOf('Chief')>=0;});
+  var grHead=STAFF.find(function(s){return s.section==='gr_lead' && s.role==='Executive Vice President' && s.name.indexOf('Sherer')>=0;});
+  var commsHead=STAFF.find(function(s){return s.section==='comms' && s.role.indexOf('Senior Vice President')>=0;});
+  var otherHeads=STAFF.filter(function(s){
+    return s.section==='biz_ops' && (s.role.indexOf('Head')>=0 || (s.role.indexOf('Chief')>=0 && s.name !== (ceo?ceo.name:'')));
+  });
+
+  var GR_ORDER=['Economic Policy','National Security','Technology & Competition','Health Care','Energy/Environment','Transportation & Infrastructure','Food/Agriculture','Consumer Products/Trade Associations'];
+  var GR_SHORT={'Economic Policy':'Econ Policy','National Security':'Nat. Security','Technology & Competition':'Tech & Comp','Health Care':'Health Care','Energy/Environment':'Energy & Env','Transportation & Infrastructure':'Transport','Food/Agriculture':'Food & Ag','Consumer Products/Trade Associations':'Consumer Prod'};
+
+  var TIER_ORDER=['Chair','Principal','Senior Vice President','Vice President','Executive Vice President','Senior Director','Director','Senior Manager','Senior Manager and Advisor','Manager','Senior Associate','Associate'];
+  function tierRank(role){
+    var r=TIER_ORDER.indexOf(role);
+    return r<0?99:r;
+  }
+
+  var h='<div style="font-family:inherit;">';
+
+  // ── CEO ──
+  if(ceo){
+    h+='<div style="text-align:center;margin-bottom:4px;">';
+    h+='<div style="display:inline-block;background:var(--navy);color:#fff;padding:10px 32px;border-radius:6px;font-weight:700;font-size:13px;">'+ceo.name+'<div style="font-size:10px;font-weight:400;opacity:.75;margin-top:2px;">Chief Executive Officer</div></div>';
+    h+='</div>';
+    h+=connector();
+  }
+
+  // ── C-Suite + Heads row ──
+  h+='<div style="display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:4px;">';
+  csuite.forEach(function(s){h+=box(s.name,s.role,false,true);});
+  h+='</div>';
+  h+=connector();
+
+  // ── GR Head banner ──
+  if(grHead){
+    h+='<div style="text-align:center;margin-bottom:4px;">';
+    h+='<div style="display:inline-block;background:#c4a882;color:var(--navy);padding:8px 24px;border-radius:6px;font-size:12px;font-weight:600;">Government Relations Practice &mdash; '+grHead.name+'<span style="font-weight:400;">, '+grHead.role+'</span></div>';
+    h+='</div>';
+    h+=connector();
+  }
+
+  // ── Practice group columns ──
+  h+='<div style="display:grid;grid-template-columns:repeat(8,1fr);gap:6px;margin-bottom:24px;">';
+  GR_ORDER.forEach(function(pg){
+    var members=STAFF.filter(function(s){return s.pg===pg && s.section==='gr';});
+    var chair=members.find(function(s){return s.chair;});
+    var rest=members.filter(function(s){return !s.chair;}).sort(function(a,b){return tierRank(a.role)-tierRank(b.role)||a.last.localeCompare(b.last);});
+    var label=GR_SHORT[pg]||pg;
+    h+='<div style="display:flex;flex-direction:column;gap:3px;">';
+    // Column header
+    h+='<div style="background:var(--navy);color:#fff;text-align:center;padding:5px 4px;font-size:9px;font-weight:700;border-radius:4px 4px 0 0;letter-spacing:.03em;">'+label+'</div>';
+    // Chair box (crimson)
+    if(chair){
+      h+='<div style="background:var(--crimson);color:#fff;padding:5px 6px;font-size:9px;text-align:center;line-height:1.3;">';
+      h+='<div style="font-weight:700;">'+chair.name+'</div>';
+      h+='<div style="opacity:.75;font-size:8px;">Chair</div>';
+      h+='</div>';
+    }
+    // Rest of column
+    rest.forEach(function(s){
+      var roleTier=s.role.replace(' and Advisor','').replace('Senior ','Sr. ').replace('Associate','Assoc').replace('Director','Dir').replace('Principal','Principal').replace('Manager','Mgr');
+      h+='<div style="background:var(--blue-light);padding:4px 6px;font-size:9px;line-height:1.3;border-left:2px solid var(--border);">';
+      h+='<div style="font-weight:600;color:var(--navy);">'+s.name+'</div>';
+      h+='<div style="color:var(--muted);font-size:8px;">'+roleTier+'</div>';
+      h+='</div>';
+    });
+    h+='</div>';
+  });
+  h+='</div>';
+
+  // ── Communications section ──
+  var commsSVPs=STAFF.filter(function(s){return s.section==='comms' && (s.role.indexOf('Vice President')>=0 || s.role==='Principal');});
+  var commsRest=STAFF.filter(function(s){return s.section==='comms' && s.role.indexOf('Vice President')<0 && s.role!=='Principal';});
+
+  h+='<div style="font-size:11px;font-weight:700;color:var(--navy);border-bottom:2px solid var(--crimson);padding-bottom:4px;margin-bottom:10px;">Communications &amp; Public Affairs</div>';
+  h+='<div style="margin-bottom:4px;display:flex;gap:6px;flex-wrap:wrap;">';
+  commsSVPs.forEach(function(s){
+    h+='<div style="background:var(--navy);color:#fff;padding:5px 8px;border-radius:4px;font-size:10px;"><div style="font-weight:600;">'+s.name+'</div><div style="font-size:8px;opacity:.75;">'+s.role.replace('Vice President - Brand Strategy and External Affairs','VP')+'</div></div>';
+  });
+  h+='</div>';
+  // Comms staff by tier
+  var commsTiers=[
+    {label:'Senior Director',m:commsRest.filter(function(s){return s.role.indexOf('Senior Director')>=0;})},
+    {label:'Director',m:commsRest.filter(function(s){return s.role.indexOf('Director')>=0&&s.role.indexOf('Senior')<0;})},
+    {label:'Senior Manager',m:commsRest.filter(function(s){return s.role.indexOf('Senior Manager')>=0;})},
+    {label:'Manager',m:commsRest.filter(function(s){return s.role==='Manager';})},
+    {label:'Senior Associate / Designer',m:commsRest.filter(function(s){return s.role.indexOf('Senior Associate')>=0||s.role.indexOf('Senior Designer')>=0||s.role.indexOf('Art Director')>=0;})},
+    {label:'Associate',m:commsRest.filter(function(s){return s.role==='Associate'||s.role==='Digital Content Strategist';})},
+  ].filter(function(t){return t.m.length>0;});
+  h+='<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px;margin-bottom:20px;">';
+  commsTiers.forEach(function(tier){
+    h+='<div style="background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:8px;">';
+    h+='<div style="font-size:9px;font-weight:700;color:var(--crimson);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;">'+tier.label+'</div>';
+    tier.m.forEach(function(s){
+      h+='<div style="font-size:11px;color:var(--navy);font-weight:500;padding:2px 0;">'+s.name+'</div>';
+    });
+    h+='</div>';
+  });
+  h+='</div>';
+
+  // ── Business Operations ──
+  var biz=STAFF.filter(function(s){return s.section==='biz_ops' && s.role.indexOf('Chief')<0;});
+  h+='<div style="font-size:11px;font-weight:700;color:var(--navy);border-bottom:2px solid var(--crimson);padding-bottom:4px;margin-bottom:10px;">Business Operations &amp; Executive Team</div>';
+  h+='<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;">';
+  var bizTiers=[
+    {label:'Senior Director / Director',m:biz.filter(function(s){return s.role.indexOf('Director')>=0;})},
+    {label:'Manager',m:biz.filter(function(s){return s.role.indexOf('Manager')>=0&&s.role.indexOf('Director')<0;})},
+    {label:'Senior Associate / Associate',m:biz.filter(function(s){return s.role.indexOf('Associate')>=0||s.role.indexOf('Accountant')>=0;})},
+  ].filter(function(t){return t.m.length>0;});
+  bizTiers.forEach(function(tier){
+    h+='<div style="background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:8px;">';
+    h+='<div style="font-size:9px;font-weight:700;color:var(--crimson);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;">'+tier.label+'</div>';
+    tier.m.forEach(function(s){
+      h+='<div style="font-size:11px;color:var(--navy);font-weight:500;padding:2px 0;">'+s.name+'</div>';
+    });
+    h+='</div>';
+  });
+  h+='</div>';
+
+  h+='</div>';
+  return h;
+}
+
+function renderOrgChart(){
+  var epActive=state.orgView!=='gr';
+  var epCount=STAFF.filter(function(s){return s.pg==='Economic Policy';}).length;
+  var grCount=STAFF.filter(function(s){return s.section==='gr';}).length;
+
+  var tabBase='padding:9px 20px;font-size:12px;font-weight:600;cursor:pointer;border-right:1px solid var(--border);';
+  var tabOn='background:var(--navy);color:#fff;';
+  var tabOff='background:#fff;color:var(--navy);';
+
+  var h='<div class="main">';
+  h+='<div style="display:flex;margin-bottom:20px;border:1px solid var(--border);border-radius:8px;overflow:hidden;width:fit-content;">';
+  h+='<div id="org-tab-ep" style="'+tabBase+(epActive?tabOn:tabOff)+'">Economic Policy <span style="opacity:.65;font-weight:400;">('+epCount+')</span></div>';
+  h+='<div id="org-tab-gr" style="'+tabBase.replace(';border-right:1px solid var(--border)','')+(epActive?tabOff:tabOn)+'">All GR Groups <span style="opacity:.65;font-weight:400;">('+grCount+')</span></div>';
+  h+='</div>';
+  h+=epActive?renderEPOrg():renderGROrg();
+  h+='</div>';
+
+  // Attach click handlers after render
+  setTimeout(function(){
+    var ep=document.getElementById('org-tab-ep');
+    var gr=document.getElementById('org-tab-gr');
+    if(ep) ep.addEventListener('click',function(){setState({orgView:'ep'});});
+    if(gr) gr.addEventListener('click',function(){setState({orgView:'gr'});});
+  },0);
+
+  return h;
+}
+
+function renderGROrg(){
+  var PGS=['Economic Policy','National Security','Technology & Competition','Health Care','Energy/Environment','Transportation & Infrastructure','Food/Agriculture','Consumer Products/Trade Associations'];
+  var SHORT={'Economic Policy':'Economic Policy','National Security':'National Security','Technology & Competition':'Tech & Competition','Health Care':'Health Care','Energy/Environment':'Energy & Env','Transportation & Infrastructure':'Transportation','Food/Agriculture':'Food & Ag','Consumer Products/Trade Associations':'Consumer Products'};
+  var TIER=['Chair','Principal','Executive Vice President','Senior Vice President','Vice President','Senior Director','Director','Senior Manager and Advisor','Senior Manager','Manager','Senior Associate','Associate'];
+  function tr(role){var i=TIER.indexOf(role);return i<0?99:i;}
+
+  var h='<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">';
+  PGS.forEach(function(pg){
+    var members=STAFF.filter(function(s){return s.pg===pg && s.section==='gr';});
+    var chair=members.find(function(s){return s.chair;});
+    var rest=members.filter(function(s){return !s.chair;}).sort(function(a,b){return tr(a.role)-tr(b.role)||a.name.split(' ').pop().localeCompare(b.name.split(' ').pop());});
+    var label=SHORT[pg]||pg;
+    h+='<div style="border:1px solid var(--border);border-radius:8px;overflow:hidden;">';
+    h+='<div style="background:var(--navy);color:#fff;padding:8px 10px;font-size:11px;font-weight:700;text-align:center;">'+label+'</div>';
+    if(chair){
+      h+='<div style="background:var(--crimson);color:#fff;padding:7px 10px;border-bottom:1px solid rgba(255,255,255,.2);">';
+      h+='<div style="font-weight:700;font-size:12px;">'+chair.name+'</div>';
+      h+='<div style="font-size:10px;opacity:.85;">Chair</div>';
+      h+='</div>';
+    }
+    rest.forEach(function(s){
+      var shortRole=s.role.replace('Senior Manager and Advisor','Sr. Mgr & Advisor').replace('Senior Vice President','SVP').replace('Vice President','VP').replace('Senior Director','Sr. Director').replace('Senior Manager','Sr. Manager').replace('Senior Associate','Sr. Associate').replace('Executive Vice President','EVP');
+      h+='<div style="padding:6px 10px;border-bottom:1px solid var(--border);background:var(--bg);">';
+      h+='<div style="font-size:12px;font-weight:600;color:var(--navy);">'+s.name+'</div>';
+      h+='<div style="font-size:10px;color:var(--muted);">'+shortRole+'</div>';
+      h+='</div>';
+    });
     h+='</div>';
   });
   h+='</div>';
   return h;
 }
-function renderOrgChart(){
-  var epCount=STAFF.filter(function(s){return s.pg==='Economic Policy';}).length;
-  var firmCount=STAFF.length;
-  var epActive=state.orgView==='ep';
-  var btn=function(v,label,n){
-    var on=state.orgView===v;
-    return '<button onclick="setOrgView(\''+v+'\')" style="padding:7px 16px;font-size:12px;font-weight:600;border:1px solid '+(on?'var(--navy)':'var(--border)')+';background:'+(on?'var(--navy)':'#fff')+';color:'+(on?'#fff':'var(--navy)')+';border-radius:6px;cursor:pointer;">'+label+' <span style="opacity:.7;">('+n+')</span></button>';
-  };
-  var h='<div class="main">';
-  h+='<div style="display:flex;gap:8px;margin-bottom:16px;">'+btn('ep','Economic Policy',epCount)+btn('firm','Firmwide GR',firmCount)+'</div>';
-  if(epActive){
-    h+='<div style="font-size:11px;color:var(--muted);margin-bottom:14px;">Economic Policy practice group reporting structure. Chair shown at top, then by seniority.</div>';
-    h+=renderEPOrg();
-  } else {
-    h+='<div style="font-size:11px;color:var(--muted);margin-bottom:14px;">All Government Relations practice groups. Each column lists members by seniority, chair first. Data from the firm staff directory.</div>';
-    h+=renderFirmwideOrg();
-  }
-  h+='</div>';
-  return h;
-}
+
 
 function renderTeam(){
   const FULL_NAMES={'Ben':'Ben Wiener','Audrey':'Audrey Neumann','Ethan':'Ethan Billips','Noah':'Noah Marine','Carolyn':'Carolyn Coda','Alex':'Alex Cisneros','Kris':'Kris Denzel','Ryan':'Ryan Dilworth','Peter':'Peter Wells','Alden':'Alden Knowlton'};
@@ -705,7 +943,7 @@ function renderTeam(){
   people.sort((a,b)=>{if(state.tSort==='name')return a.fullName.localeCompare(b.fullName);if(state.tSort==='clients')return b.uniqueClients-a.uniqueClients;return b.total-a.total;});
   const all=Object.values(peopleMap);
   const stats={total:all.length,cros:all.filter(p=>p.cro.length>0).length,leads:all.filter(p=>p.lead.length>0).length,teamRoles:all.filter(p=>p.team.length>0).length,assoc:all.filter(p=>p.associate.length>0).length};
-  return`<div class="stats-bar"><div class="stat"><div class="stat-accent"></div><div class="stat-label">EP team members</div><div class="stat-val">${stats.total}</div><div class="stat-sub">economic policy group</div></div><div class="stat"><div class="stat-accent"></div><div class="stat-label">CRO role</div><div class="stat-val">${stats.cros}</div><div class="stat-sub">client relationship officers</div></div><div class="stat"><div class="stat-accent"></div><div class="stat-label">Lead role</div><div class="stat-val">${stats.leads}</div><div class="stat-sub">day-to-day client leads</div></div><div class="stat"><div class="stat-accent"></div><div class="stat-label">Team role</div><div class="stat-val">${stats.teamRoles}</div><div class="stat-sub">subject matter experts</div></div><div class="stat"><div class="stat-accent"></div><div class="stat-label">Associate role</div><div class="stat-val">${stats.assoc}</div><div class="stat-sub">supporting EP work</div></div></div><div class="main"><div class="controls"><div class="search-wrap"><span class="search-icon">\u1f50d</span><input type="text" placeholder="Search people or clients\u2026" value="${state.tSearch}" oninput="setState({tSearch:this.value})"/></div><select onchange="setState({tFilter:this.value})"><option value=""${!state.tFilter?' selected':''}>All EP team</option><option value="cro"${state.tFilter==='cro'?' selected':''}>CROs only</option><option value="lead"${state.tFilter==='lead'?' selected':''}>Client leads only</option><option value="assoc"${state.tFilter==='assoc'?' selected':''}>Associates only</option></select><select onchange="setState({tSort:this.value})"><option value="workload"${state.tSort==='workload'?' selected':''}>Sort: total roles</option><option value="clients"${state.tSort==='clients'?' selected':''}>Sort: # unique clients</option><option value="name"${state.tSort==='name'?' selected':''}>Sort: A\u2013Z</option></select><button class="clear-btn" onclick="setState({tSearch:'',tFilter:'',tSort:'workload'})">Clear filters</button></div><div class="team-grid">${people.map(p=>`<div class="team-card ep-card"><div class="team-header"><div><div class="team-name">${p.fullName}</div>${p.title?`<div style="font-size:11px;color:var(--muted);margin-top:2px;">${p.title}</div>`:''}</div></div><div class="team-stats"><div class="team-stat${p.cro.length?' active':''}">CRO<span class="ts-num">${p.cro.length}</span></div><div class="team-stat${p.lead.length?' active':''}">Lead<span class="ts-num">${p.lead.length}</span></div><div class="team-stat${p.team.length?' active':''}">Team<span class="ts-num">${p.team.length}</span></div><div class="team-stat${p.associate.length?' active':''}">Assoc<span class="ts-num">${p.associate.length}</span></div></div><div class="team-clients">${p.cro.length?`<div class="tc-row"><span class="tc-label">CRO on</span><span class="tc-clients">${p.cro.join(', ')}</span></div>`:''}${p.lead.length?`<div class="tc-row"><span class="tc-label">Leads</span><span class="tc-clients">${p.lead.join(', ')}</span></div>`:''}${p.team.length?`<div class="tc-row"><span class="tc-label">Team on</span><span class="tc-clients">${p.team.join(', ')}</span></div>`:''}${p.associate.length?`<div class="tc-row"><span class="tc-label">Assoc on</span><span class="tc-clients">${p.associate.join(', ')}</span></div>`:''}${!p.total?`<div class="tc-row" style="color:var(--muted);font-style:italic;">No client assignments on current chart</div>`:''}</div><div class="team-footer">${p.uniqueClients} unique client${p.uniqueClients===1?'':'s'} \u00b7 ${p.total} role${p.total===1?'':'s'} filled</div></div>`).join('')}</div><div class="results-count" style="padding:12px;color:var(--muted);font-size:12px;">${people.length} of ${stats.total} EP team members shown \u00b7 Source: EPPG Spring 2026 chart</div></div>`;
+  return`<div class="stats-bar"><div class="stat"><div class="stat-accent"></div><div class="stat-label">EP team members</div><div class="stat-val">${stats.total}</div><div class="stat-sub">economic policy group</div></div><div class="stat"><div class="stat-accent"></div><div class="stat-label">CRO role</div><div class="stat-val">${stats.cros}</div><div class="stat-sub">client relationship officers</div></div><div class="stat"><div class="stat-accent"></div><div class="stat-label">Lead role</div><div class="stat-val">${stats.leads}</div><div class="stat-sub">day-to-day client leads</div></div><div class="stat"><div class="stat-accent"></div><div class="stat-label">Team role</div><div class="stat-val">${stats.teamRoles}</div><div class="stat-sub">subject matter experts</div></div><div class="stat"><div class="stat-accent"></div><div class="stat-label">Associate role</div><div class="stat-val">${stats.assoc}</div><div class="stat-sub">supporting EP work</div></div></div><div class="main"><div class="controls"><div class="search-wrap"><span class="search-icon">&#128269;</span><input type="text" placeholder="Search people or clients&hellip;" value="${state.tSearch}" oninput="setState({tSearch:this.value})"/></div><select onchange="setState({tFilter:this.value})"><option value=""${!state.tFilter?' selected':''}>All EP team</option><option value="cro"${state.tFilter==='cro'?' selected':''}>CROs only</option><option value="lead"${state.tFilter==='lead'?' selected':''}>Client leads only</option><option value="assoc"${state.tFilter==='assoc'?' selected':''}>Associates only</option></select><select onchange="setState({tSort:this.value})"><option value="workload"${state.tSort==='workload'?' selected':''}>Sort: total roles</option><option value="clients"${state.tSort==='clients'?' selected':''}>Sort: # unique clients</option><option value="name"${state.tSort==='name'?' selected':''}>Sort: A\u2013Z</option></select><button class="clear-btn" onclick="setState({tSearch:'',tFilter:'',tSort:'workload'})">Clear filters</button></div><div class="team-grid">${people.map(p=>`<div class="team-card ep-card"><div class="team-header"><div><div class="team-name">${p.fullName}</div>${p.title?`<div style="font-size:11px;color:var(--muted);margin-top:2px;">${p.title}</div>`:''}</div></div><div class="team-stats"><div class="team-stat${p.cro.length?' active':''}">CRO<span class="ts-num">${p.cro.length}</span></div><div class="team-stat${p.lead.length?' active':''}">Lead<span class="ts-num">${p.lead.length}</span></div><div class="team-stat${p.team.length?' active':''}">Team<span class="ts-num">${p.team.length}</span></div><div class="team-stat${p.associate.length?' active':''}">Assoc<span class="ts-num">${p.associate.length}</span></div></div><div class="team-clients">${p.cro.length?`<div class="tc-row"><span class="tc-label">CRO on</span><span class="tc-clients">${p.cro.join(', ')}</span></div>`:''}${p.lead.length?`<div class="tc-row"><span class="tc-label">Leads</span><span class="tc-clients">${p.lead.join(', ')}</span></div>`:''}${p.team.length?`<div class="tc-row"><span class="tc-label">Team on</span><span class="tc-clients">${p.team.join(', ')}</span></div>`:''}${p.associate.length?`<div class="tc-row"><span class="tc-label">Assoc on</span><span class="tc-clients">${p.associate.join(', ')}</span></div>`:''}${!p.total?`<div class="tc-row" style="color:var(--muted);font-style:italic;">No client assignments on current chart</div>`:''}</div><div class="team-footer">${p.uniqueClients} unique client${p.uniqueClients===1?'':'s'} \u00b7 ${p.total} role${p.total===1?'':'s'} filled</div></div>`).join('')}</div><div class="results-count" style="padding:12px;color:var(--muted);font-size:12px;">${people.length} of ${stats.total} EP team members shown \u00b7 Source: EPPG Spring 2026 chart</div></div>`;
 }
 
 function render(){document.getElementById('app').innerHTML=`<div class="header"><div><div class="header-title">Invariant \u00b7 Economic Policy Group \u00b7 2026</div><div class="header-sub">${SYNC_DATE}</div></div></div><div class="nav">${[['meetings','Meetings'],['clients','Clients'],['team','Team'],['orgchart','Org Chart'],['topoffices','Top Offices'],['crosspg','Outside PG'],['revenue','Revenue']].map(([k,l])=>`<div class="nav-tab${state.page===k?' active':''}" onclick="setState({page:'${k}'})">${l}</div>`).join('')}</div>${state.page==='meetings'?renderMeetings():state.page==='clients'?renderClients():state.page==='team'?renderTeam():state.page==='orgchart'?renderOrgChart():state.page==='topoffices'?renderTopOffices():state.page==='crosspg'?renderCrossPG():renderRevenue()}`;}
