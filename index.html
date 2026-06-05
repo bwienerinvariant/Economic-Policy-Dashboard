@@ -127,7 +127,7 @@ tr:hover td{background:var(--cream);}
 <body>
 <div id="app"></div>
 <script>
-const SYNC_DATE="Last Updated: May 31, 2026";
+const SYNC_DATE="Last Updated: June 5, 2026";
 const SWEEP_NOTE = "Full certainty sweep complete \u2014 all 10 EP team calendars fully paginated and grep-verified, all 30 clients keyword-checked, zero genuine misses";
 
 const STAFF=[
@@ -587,6 +587,21 @@ const MEETINGS = [
   {id:339,date:"2026-05-20",client:"ACLI",         pg:"EP",         office:"Senate Special Committee on Aging",          chamber:"Senate",party:"D",govStaff:"Jill Crissman",                                      govEmails:"Jill_Crissman@aging.senate.gov"},
   {id:340,date:"2026-06-01",client:"Affirm",        pg:"EP",         office:"Rep. Susie Lee (D-NV)",                      chamber:"House", party:"D",govStaff:"Trey Webster; Joshua Perlow; Angelica Villarta",     govEmails:"trey.webster@mail.house.gov; joshua.perlow@mail.house.gov; angelica.villarta@mail.house.gov"},
   {id:341,date:"2026-06-15",client:"Affirm",        pg:"EP",         office:"Rep. Dina Titus (D-NV)",                     chamber:"House", party:"D",govStaff:"Salomee Levy; Julianna Melendez",                    govEmails:"Salomee.Levy1@mail.house.gov; Julianna.Melendez@mail.house.gov"},
+  {id:342,date:"2026-06-11",client:"Affirm",      pg:"EP",office:"Rep. Steven Horsford (D-NV)",                                     chamber:"House", party:"D",govStaff:"Ian Haimowitz; Joi Holliday-Sparrow",   govEmails:"ian.haimowitz@mail.house.gov; joi.holliday-sparrow@mail.house.gov"},
+  {id:343,date:"2026-06-05",client:"DraftKings",   pg:"EP",office:"Rep. Josh Gottheimer (D-NJ)",                                     chamber:"House", party:"D",govStaff:"Ben Schwartz; Evan Ashy",                govEmails:"Ben.Schwartz@mail.house.gov; Evan.Ashy@mail.house.gov"},
+  {id:344,date:"2026-06-08",client:"Kraken",       pg:"EP",office:"Rep. Brad Schneider (D-IL)",                                      chamber:"House", party:"D",govStaff:"Rachel Colucci; Olivia Kirchberg",       govEmails:"rachel.colucci@mail.house.gov; olivia.kirchberg@mail.house.gov"},
+  {id:345,date:"2026-06-08",client:"Kraken",       pg:"EP",office:"Rep. Gwen Moore (D-WI)",                                          chamber:"House", party:"D",govStaff:"Caroline Frauman",                       govEmails:"caroline.frauman@mail.house.gov"},
+  {id:346,date:"2026-06-05",client:"Kraken",       pg:"EP",office:"Ways & Means Committee - Digital Assets Taxation Stakeholder Call",chamber:"House", party:"R",govStaff:"Mary Fatzinger; Allie Kotsovos",         govEmails:"Mary.Fatzinger@mail.house.gov; Allie.Kotsovos@mail.house.gov"},
+  {id:347,date:"2026-04-22",client:"AALA",pg:"EP",office:"U.S. Department of Transportation (DOT)",         chamber:"Agency",party:"",govStaff:"Benjamin Siegrist; Peter Simshauser; John Burdette; Miles Bolin; Tamica Dixon",govEmails:"benjamin.siegrist@dot.gov; peter.simshauser@dot.gov; john.burdette@dot.gov; miles.bolin@dot.gov; tamica.dixon@dot.gov"},
+  {id:348,date:"2026-04-22",client:"AALA",pg:"EP",office:"Senate Commerce Committee (Majority Staff)",       chamber:"Senate",party:"R",govStaff:"Sarah Farkas; Michael Davisson; Rachel Boose",                govEmails:"Sarah_Farkas@commerce.senate.gov; Michael_Davisson@commerce.senate.gov; Rachel_Boose@commerce.senate.gov"},
+  {id:349,date:"2026-04-22",client:"AALA",pg:"EP",office:"House Science, Space & Technology Committee",     chamber:"House", party:"",govStaff:"Megan Jackson",                                                  govEmails:"Megan.Jackson@mail.house.gov"},
+  {id:350,date:"2026-06-04",client:"Coalition for Prediction Markets",pg:"EP",office:"Rep. Josh Gottheimer (D-NJ)",chamber:"House",party:"D",govStaff:"",govEmails:""},
+  {id:351,date:"2026-06-04",client:"Coalition for Prediction Markets",pg:"EP",office:"House Agriculture Committee (Majority Staff)",chamber:"House",party:"R",govStaff:"Paul Balzano",govEmails:"paul.balzano@mail.house.gov"},
+  {id:352,date:"2026-06-04",client:"Coalition for Prediction Markets",pg:"EP",office:"Rep. Frank Lucas (R-OK)",                      chamber:"House",party:"R",govStaff:"Brooke Kramer",                   govEmails:"Brooke.Kramer@mail.house.gov"},
+  {id:353,date:"2026-06-04",client:"Coalition for Prediction Markets",pg:"EP",office:"Rep. Brian Fitzpatrick (R-PA)",chamber:"House",party:"R",govStaff:"Cameron Rickenbach; Macy Martin",govEmails:"Cameron.Rickenbach@mail.house.gov; Macy.Martin@mail.house.gov"},
+  {id:354,date:"2026-06-04",client:"Coalition for Prediction Markets",pg:"EP",office:"Rep. Rob Menendez (D-NJ)",          chamber:"House",party:"D",govStaff:"Georgia McLean",                  govEmails:"Georgia.McLean@mail.house.gov"},
+  {id:355,date:"2026-06-04",client:"Coalition for Prediction Markets",pg:"EP",office:"Rep. Sam Liccardo (D-CA)",          chamber:"House",party:"D",govStaff:"Kellie O'Brien",                   govEmails:"Kellie.OBrien@mail.house.gov"},
+  {id:356,date:"2026-06-04",client:"Coalition for Prediction Markets",pg:"EP",office:"House Agriculture Committee (Minority Staff)",chamber:"House",party:"D",govStaff:"Clark Ogilvie; Joshua Lobert",govEmails:"clark.ogilvie@mail.house.gov; joshua.lobert@mail.house.gov"},
 ];
 
 const CLIENTS = [
