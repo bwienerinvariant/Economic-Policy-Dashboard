@@ -127,7 +127,7 @@ tr:hover td{background:var(--cream);}
 <body>
 <div id="app"></div>
 <script>
-const SYNC_DATE="Last Updated: June 5, 2026";
+const SYNC_DATE="Last Updated: June 8, 2026";
 const SWEEP_NOTE = "Full certainty sweep complete \u2014 all 10 EP team calendars fully paginated and grep-verified, all 30 clients keyword-checked, zero genuine misses";
 
 const STAFF=[
@@ -602,6 +602,26 @@ const MEETINGS = [
   {id:354,date:"2026-06-04",client:"Coalition for Prediction Markets",pg:"EP",office:"Rep. Rob Menendez (D-NJ)",          chamber:"House",party:"D",govStaff:"Georgia McLean",                  govEmails:"Georgia.McLean@mail.house.gov"},
   {id:355,date:"2026-06-04",client:"Coalition for Prediction Markets",pg:"EP",office:"Rep. Sam Liccardo (D-CA)",          chamber:"House",party:"D",govStaff:"Kellie O'Brien",                   govEmails:"Kellie.OBrien@mail.house.gov"},
   {id:356,date:"2026-06-04",client:"Coalition for Prediction Markets",pg:"EP",office:"House Agriculture Committee (Minority Staff)",chamber:"House",party:"D",govStaff:"Clark Ogilvie; Joshua Lobert",govEmails:"clark.ogilvie@mail.house.gov; joshua.lobert@mail.house.gov"},
+  {id:357,date:"2026-06-11",client:"Kraken",       pg:"EP",       office:"Rep. Terri Sewell (D-AL)",   chamber:"House", party:"D",govStaff:"Robert Nuttall",                         govEmails:"robert.nuttall@mail.house.gov"},
+  {id:358,date:"2026-06-08",client:"SK Life Science",pg:"Cross-PG",office:"Sen. Katie Britt (R-AL)",   chamber:"Senate",party:"R",govStaff:"Nick Tolbert; Ashtyn Landen",            govEmails:"nick_tolbert@britt.senate.gov; ashtyn_landen@britt.senate.gov"},
+  {id:359, date:"2026-03-11",client:"Swiss Re",pg:"EP",office:"Sen. Mike Rounds (R-SD)",                          chamber:"Senate",party:"R",govStaff:"Kathleen Gayle",                                 govEmails:"kathleen_gayle@rounds.senate.gov"},
+  {id:360, date:"2026-03-18",client:"Swiss Re",pg:"EP",office:"Sen. John Kennedy (R-LA)",                         chamber:"Senate",party:"R",govStaff:"William Pietri",                                  govEmails:"william_pietri@kennedy.senate.gov"},
+  {id:361, date:"2026-03-18",client:"Swiss Re",pg:"EP",office:"Sen. Pete Ricketts (R-NE)",                        chamber:"Senate",party:"R",govStaff:"Andrew Nam; Nick Natz",                           govEmails:"andrew_nam@ricketts.senate.gov; nick_natz@ricketts.senate.gov"},
+  {id:362, date:"2026-03-18",client:"Swiss Re",pg:"EP",office:"Sen. Katie Britt (R-AL)",                          chamber:"Senate",party:"R",govStaff:"Caroline Moore",                                  govEmails:"Caroline_Moore@britt.senate.gov"},
+  {id:363, date:"2026-03-18",client:"Swiss Re",pg:"EP",office:"Rep. Ritchie Torres (D-NY)",                       chamber:"House", party:"D",govStaff:"Quincy Henderson",                                govEmails:"quincy.henderson@mail.house.gov"},
+  {id:364, date:"2026-03-19",client:"Swiss Re",pg:"EP",office:"Rep. Lloyd Smucker (R-PA)",                        chamber:"House", party:"R",govStaff:"Andrew Weinstock",                                govEmails:"Andrew.Weinstock@mail.house.gov"},
+  {id:365, date:"2026-03-19",client:"Swiss Re",pg:"EP",office:"Rep. Steven Horsford (D-NV)",                      chamber:"House", party:"D",govStaff:"Ian Haimowitz",                                   govEmails:"Ian.Haimowitz@mail.house.gov"},
+  {id:366, date:"2026-03-19",client:"Swiss Re",pg:"EP",office:"House Financial Services Committee (Subcommittee on Housing and Insurance)",chamber:"House",party:"R",govStaff:"Edward Skala",govEmails:"edward.skala@mail.house.gov"},
+  {id:367, date:"2026-03-19",client:"Swiss Re",pg:"EP",office:"Rep. Maria Elvira Salazar (R-FL)",                 chamber:"House", party:"R",govStaff:"Whit Blount",                                     govEmails:"whit.blount@mail.house.gov"},
+  {id:368,date:"2026-03-19",client:"Swiss Re",pg:"EP",office:"Rep. Nydia Velazquez (D-NY)",                      chamber:"House", party:"D",govStaff:"Richard Erkel; Simon Askren",                     govEmails:"Richard.Erkel@mail.house.gov; Simon.Askren@mail.house.gov"},
+  {id:369,date:"2026-04-23",client:"Swiss Re",pg:"EP",office:"Rep. Rudy Yakym (R-IN)",                           chamber:"House", party:"R",govStaff:"Bridget Visconti",                                govEmails:"bridget.visconti@mail.house.gov"},
+  {id:370,date:"2026-05-04",client:"Swiss Re",pg:"EP",office:"Rep. Gregory Meeks (D-NY)",                        chamber:"House", party:"D",govStaff:"Dharamjeet Singh",                                govEmails:"Dharamjeet.Singh@mail.house.gov"},
+  {id:371,date:"2026-05-06",client:"Swiss Re",pg:"EP",office:"Centers for Medicare & Medicaid Services (CMS)",   chamber:"Agency",party:"", govStaff:"Miriam Applbaum",                                 govEmails:"miriam.applbaum@cms.hhs.gov"},
+  {id:372,date:"2026-05-06",client:"Swiss Re",pg:"EP",office:"Rep. Andrew Garbarino (R-NY)",                     chamber:"House", party:"R",govStaff:"MK Sowers",                                       govEmails:"mk.sowers@mail.house.gov"},
+  {id:373,date:"2026-06-08",client:"Swiss Re",pg:"EP",office:"Sen. Cory Booker (D-NJ)",                 chamber:"Senate",party:"D",govStaff:"",              govEmails:""},
+  {id:374,date:"2026-06-09",client:"Swiss Re",pg:"EP",office:"Rep. Morgan Griffith (R-VA)",              chamber:"House", party:"R",govStaff:"Cameron Morra",  govEmails:"Cameron.Morra@mail.house.gov"},
+  {id:375,date:"2026-06-09",client:"Swiss Re",pg:"EP",office:"Rep. Erin Houchin (R-IN)",                chamber:"House", party:"R",govStaff:"Anna McCollough", govEmails:"Anna.McCollough@mail.house.gov"},
+  {id:376,date:"2026-06-09",client:"Swiss Re",pg:"EP",office:"Sen. Jon Husted (R-OH)",                  chamber:"Senate",party:"R",govStaff:"Andrew Smith",    govEmails:"Andrew_Smith@husted.senate.gov"},
 ];
 
 const CLIENTS = [
