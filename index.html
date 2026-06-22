@@ -127,7 +127,7 @@ tr:hover td{background:var(--cream);}
 <body>
 <div id="app"></div>
 <script>
-const SYNC_DATE="Last Updated: June 12, 2026";
+const SYNC_DATE="Last Updated: June 22, 2026";
 const SWEEP_NOTE = "Full certainty sweep complete \u2014 all 10 EP team calendars fully paginated and grep-verified, all 30 clients keyword-checked, zero genuine misses";
 
 const STAFF=[
@@ -594,7 +594,7 @@ const MEETINGS = [
   {id:346,date:"2026-06-05",client:"Kraken",       pg:"EP",office:"Ways & Means Committee - Digital Assets Taxation Stakeholder Call",chamber:"House", party:"R",govStaff:"Mary Fatzinger; Allie Kotsovos",         govEmails:"Mary.Fatzinger@mail.house.gov; Allie.Kotsovos@mail.house.gov"},
   {id:347,date:"2026-04-22",client:"AALA",pg:"EP",office:"U.S. Department of Transportation (DOT)",         chamber:"Agency",party:"",govStaff:"Benjamin Siegrist; Peter Simshauser; John Burdette; Miles Bolin; Tamica Dixon",govEmails:"benjamin.siegrist@dot.gov; peter.simshauser@dot.gov; john.burdette@dot.gov; miles.bolin@dot.gov; tamica.dixon@dot.gov"},
   {id:348,date:"2026-04-22",client:"AALA",pg:"EP",office:"Senate Commerce Committee (Majority Staff)",       chamber:"Senate",party:"R",govStaff:"Sarah Farkas; Michael Davisson; Rachel Boose",                govEmails:"Sarah_Farkas@commerce.senate.gov; Michael_Davisson@commerce.senate.gov; Rachel_Boose@commerce.senate.gov"},
-  {id:349,date:"2026-04-22",client:"AALA",pg:"EP",office:"House Science, Space & Technology Committee",     chamber:"House", party:"",govStaff:"Megan Jackson",                                                  govEmails:"Megan.Jackson@mail.house.gov"},
+  {id:349,date:"2026-04-22",client:"AALA",pg:"EP",office:"House Energy & Commerce Committee (Majority Staff)",     chamber:"House", party:"",govStaff:"Megan Jackson",                                                  govEmails:"Megan.Jackson@mail.house.gov"},
   {id:350,date:"2026-06-04",client:"Coalition for Prediction Markets",pg:"EP",office:"Rep. Josh Gottheimer (D-NJ)",chamber:"House",party:"D",govStaff:"",govEmails:""},
   {id:351,date:"2026-06-04",client:"Coalition for Prediction Markets",pg:"EP",office:"House Agriculture Committee (Majority Staff)",chamber:"House",party:"R",govStaff:"Paul Balzano",govEmails:"paul.balzano@mail.house.gov"},
   {id:352,date:"2026-06-04",client:"Coalition for Prediction Markets",pg:"EP",office:"Rep. Frank Lucas (R-OK)",                      chamber:"House",party:"R",govStaff:"Brooke Kramer",                   govEmails:"Brooke.Kramer@mail.house.gov"},
@@ -622,28 +622,22 @@ const MEETINGS = [
   {id:374,date:"2026-06-09",client:"Swiss Re",pg:"EP",office:"Rep. Morgan Griffith (R-VA)",              chamber:"House", party:"R",govStaff:"Cameron Morra",  govEmails:"Cameron.Morra@mail.house.gov"},
   {id:375,date:"2026-06-09",client:"Swiss Re",pg:"EP",office:"Rep. Erin Houchin (R-IN)",                chamber:"House", party:"R",govStaff:"Anna McCollough", govEmails:"Anna.McCollough@mail.house.gov"},
   {id:376,date:"2026-06-09",client:"Swiss Re",pg:"EP",office:"Sen. Jon Husted (R-OH)",                  chamber:"Senate",party:"R",govStaff:"Andrew Smith",    govEmails:"Andrew_Smith@husted.senate.gov"},
-
-  // ── New from sweep (Last Updated: June 12, 2026) ──
-  {id:377,date:"2026-06-08",client:"Kraken",        pg:"EP",office:"Rep. Tom Suozzi (D-NY)",                 chamber:"House", party:"D",govStaff:"Zoe Wong",                           govEmails:"zoe.wong@mail.house.gov"},
-  {id:378,date:"2026-06-09",client:"Kraken",        pg:"EP",office:"Rep. Jimmy Gomez (D-CA)",                chamber:"House", party:"D",govStaff:"Ethan Dodd",                          govEmails:"ethan.dodd@mail.house.gov"},
-  {id:379,date:"2026-06-11",client:"Affirm",        pg:"EP",office:"Rep. Steven Horsford (D-NV)",            chamber:"House", party:"D",govStaff:"Ian Haimowitz; Joi Holliday-Sparrow",  govEmails:"ian.haimowitz@mail.house.gov; joi.holliday-sparrow@mail.house.gov"},
-  {id:380,date:"2026-06-11",client:"Kraken",        pg:"EP",office:"Rep. Terri Sewell (D-AL)",               chamber:"House", party:"D",govStaff:"Robert Nuttall",                       govEmails:"robert.nuttall@mail.house.gov"},
-  {id:381,date:"2026-06-11",client:"Kraken",        pg:"EP",office:"Rep. Suzan DelBene (D-WA)",              chamber:"House", party:"D",govStaff:"Victoria Honard",                      govEmails:"victoria.honard@mail.house.gov"},
-  {id:382,date:"2026-06-15",client:"Affirm",        pg:"EP",office:"Rep. Dina Titus (D-NV)",                 chamber:"House", party:"D",govStaff:"Julianna Melendez; Salomee Levy",      govEmails:"Julianna.Melendez@mail.house.gov; Salomee.Levy1@mail.house.gov"},
-  {id:383,date:"2026-06-16",client:"Affirm",        pg:"EP",office:"Rep. Shomari Figures (D-AL)",            chamber:"House", party:"D",govStaff:"Ryan Blue",                            govEmails:"ryan.blue@mail.house.gov"},
-  {id:384,date:"2026-06-16",client:"Affirm",        pg:"EP",office:"Rep. Vicente Gonzalez (D-TX)",           chamber:"House", party:"D",govStaff:"Ivan Torrez",                          govEmails:"ivan.torrez@mail.house.gov"},
-  {id:385,date:"2026-06-16",client:"Affirm",        pg:"EP",office:"Rep. Nikema Williams (D-GA)",            chamber:"House", party:"D",govStaff:"Taylor Holmes",                        govEmails:"taylor.holmes@mail.house.gov"},
-  {id:386,date:"2026-06-18",client:"Kraken",        pg:"EP",office:"Sen. Adam Schiff (D-CA)",                chamber:"Senate",party:"D",govStaff:"Sircey Smith; Rebecca Schatz; Jed Bush",govEmails:"Sircey_Smith@schiff.senate.gov; Rebecca_Schatz@schiff.senate.gov; Jed_Bush@schiff.senate.gov"},
-  {id:387,date:"2026-06-22",client:"Ramp",          pg:"EP",office:"Rep. Bryan Steil (R-WI)",                chamber:"House", party:"R",govStaff:"David Goldfarb",                       govEmails:"david.goldfarb@mail.house.gov"},
-  {id:388,date:"2026-06-22",client:"Ramp",          pg:"EP",office:"HFSC Majority Staff",                    chamber:"House", party:"R",govStaff:"Nick Rockwell; Ben Johnson; Allison Behuniak",govEmails:"nick.rockwell@mail.house.gov; johnson@mail.house.gov; allison.behuniak@mail.house.gov"},
-  {id:389,date:"2026-06-24",client:"Ramp",          pg:"EP",office:"Sen. Bill Hagerty (R-TN)",               chamber:"Senate",party:"R",govStaff:"Matt Venoit",                          govEmails:"matt_venoit@hagerty.senate.gov"},
-  {id:390,date:"2026-06-24",client:"Ramp",          pg:"EP",office:"Rep. Sara Jacobs (D-CA)",                chamber:"House", party:"D",govStaff:"Brandon Mendoza; Shinnola Alexander",  govEmails:"brandon.mendoza@mail.house.gov; shinnola.alexander2@mail.house.gov"},
-  {id:391,date:"2026-06-24",client:"Ramp",          pg:"EP",office:"Rep. Lori Trahan (D-MA)",                chamber:"House", party:"D",govStaff:"Dylan Irlbeck; Matthew McMillan",       govEmails:"dylan.irlbeck@mail.house.gov; matthew.mcmillan@mail.house.gov"},
-  {id:392,date:"2026-06-24",client:"Swiss Re",      pg:"EP",office:"Rep. Marlin Stutzman (R-IN)",            chamber:"House", party:"R",govStaff:"Ryan Carreiro; Amy Wells",               govEmails:"Ryan.Carreiro@mail.house.gov; Amy.Wells@mail.house.gov"},
-  {id:393,date:"2026-06-24",client:"Swiss Re",      pg:"EP",office:"Rep. Kevin Hern (R-OK)",                 chamber:"House", party:"R",govStaff:"EmmaLou Ford; Jefferson Willis",         govEmails:"EmmaLou.Ford@mail.house.gov; Jefferson.Willis@mail.house.gov"},
-  {id:394,date:"2026-06-25",client:"Ramp",          pg:"EP",office:"Whip Tom Emmer (R-MN)",                  chamber:"House", party:"R",govStaff:"Ian Foley",                             govEmails:"ian.foley@mail.house.gov"},
-  {id:395,date:"2026-06-25",client:"Ramp",          pg:"EP",office:"Sen. Joni Ernst (R-IA)",                 chamber:"Senate",party:"R",govStaff:"Meredith West; Riley Jergens; Sloan Hamill",govEmails:"meredith_west@sbc.senate.gov; Riley_Jergens@sbc.senate.gov; Sloan_Hamill@sbc.senate.gov"},
-  {id:396,date:"2026-06-30",client:"Affirm",        pg:"EP",office:"Future Forum (Rep. Victoria Spartz)",    chamber:"House", party:"R",govStaff:"Victoria Houghtalen",                   govEmails:"victoria.houghtalen@mail.house.gov"},
+  {id:377,date:"2026-06-09",client:"Kraken",pg:"EP",office:"Rep. Jimmy Gomez (D-CA)",chamber:"House",party:"D",govStaff:"Ethan Dodd",govEmails:"ethan.dodd@mail.house.gov"},
+  {id:378,date:"2026-06-11",client:"Kraken",pg:"EP",office:"Rep. Suzan DelBene (D-WA)",chamber:"House",party:"D",govStaff:"Victoria Honard",govEmails:"victoria.honard@mail.house.gov"},
+  {id:379,date:"2026-06-18",client:"Kraken",pg:"EP",office:"Sen. Adam Schiff (D-CA)",chamber:"Senate",party:"D",govStaff:"Sircey Smith; Rebecca Schatz; Jed Bush",govEmails:"Sircey_Smith@schiff.senate.gov; Rebecca_Schatz@schiff.senate.gov; Jed_Bush@schiff.senate.gov"},
+  {id:380,date:"2026-06-22",client:"Circle",pg:"EP",office:"Sen. Ron Wyden (D-OR)",chamber:"Senate",party:"D",govStaff:"Alex Bertschiwrigley",govEmails:"alex_bertschiwrigley@wyden.senate.gov"},
+  {id:381,date:"2026-06-08",client:"SK Life Science",pg:"Cross-PG",office:"Sen. Jim Banks (R-IN)",chamber:"Senate",party:"R",govStaff:"Jason Geske",govEmails:"jason_geske@banks.senate.gov"},
+  {id:382,date:"2026-06-10",client:"SK Life Science",pg:"Cross-PG",office:"Sen. Pete Ricketts (R-NE)",chamber:"Senate",party:"R",govStaff:"Andrew Nam",govEmails:"andrew_nam@ricketts.senate.gov"},
+  {id:383,date:"2026-06-10",client:"SK Hynix",pg:"Cross-PG",office:"Sen. Bernie Moreno (R-OH)",chamber:"Senate",party:"R",govStaff:"Mike Robertson; Sophia Friguletto; Lindsey Kelleher",govEmails:"Mike_Robertson@moreno.senate.gov; Sophia_Friguletto@moreno.senate.gov; Lindsey_Kelleher@moreno.senate.gov"},
+  {id:384,date:"2026-01-27",client:"Mercari",pg:"EP",office:"House Oversight Committee (Dem Staff)",chamber:"House",party:"D",govStaff:"Mark Stephenson; Morgan Solomon",govEmails:"mark.stephenson@mail.house.gov; morgan.solomon@mail.house.gov"},
+  {id:385,date:"2026-01-27",client:"Mercari",pg:"EP",office:"House Oversight Committee (Majority Staff)",chamber:"House",party:"R",govStaff:"Bill Womack",govEmails:"bill.womack@mail.house.gov"},
+  {id:386,date:"2026-01-30",client:"Mercari",pg:"EP",office:"House Oversight Committee (Majority Staff)",chamber:"House",party:"R",govStaff:"Bill Womack",govEmails:"bill.womack@mail.house.gov"},
+  {id:387,date:"2026-04-08",client:"Mercari",pg:"EP",office:"Rep. Sam Liccardo (D-CA)",chamber:"House",party:"D",govStaff:"Eric Henshall",govEmails:"eric.henshall@mail.house.gov"},
+  {id:388,date:"2026-02-03",client:"Aaron's Company",pg:"Cross-PG",office:"Sen. Angela Alsobrooks (D-MD)",chamber:"Senate",party:"D",govStaff:"Perrin Brown",govEmails:"Perrin_Brown@alsobrooks.senate.gov"},
+  {id:389,date:"2026-02-03",client:"Aaron's Company",pg:"Cross-PG",office:"Rep. Sam Liccardo (D-CA)",chamber:"House",party:"D",govStaff:"Kellie O'Brien",govEmails:"kellie.obrien@mail.house.gov"},
+  {id:390,date:"2026-02-04",client:"Aramark",pg:"Cross-PG",office:"Sen. Dave McCormick (R-PA)",chamber:"Senate",party:"R",govStaff:"James Cunningham",govEmails:"James_Cunningham@mccormick.senate.gov"},
+  {id:391,date:"2026-02-25",client:"ASM",pg:"Cross-PG",office:"Department of Treasury",chamber:"Agency",party:"",govStaff:"Rebecca Burch; James Wang; Jonathan Galin; Isaac Wood",govEmails:"Rebecca.Burch@treasury.gov; James.Wang2@treasury.gov; Jonathan.Galin@treasury.gov; Isaac.Wood@treasury.gov"},
+  {id:392,date:"2026-03-10",client:"Cummins",pg:"Cross-PG",office:"U.S. Department of Commerce (ITA)",chamber:"Agency",party:"",govStaff:"Chase Moabery; Kelly Coldiron",govEmails:"Chase.Moabery@trade.gov; Kelly.Coldiron@trade.gov"},
 ];
 
 const CLIENTS = [
