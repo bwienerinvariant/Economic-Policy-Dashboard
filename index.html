@@ -127,7 +127,7 @@ tr:hover td{background:var(--cream);}
 <body>
 <div id="app"></div>
 <script>
-const SYNC_DATE="Last Updated: June 22, 2026";
+const SYNC_DATE="Last Updated: June 28, 2026";
 const SWEEP_NOTE = "Full certainty sweep complete \u2014 all 10 EP team calendars fully paginated and grep-verified, all 30 clients keyword-checked, zero genuine misses";
 
 const STAFF=[
@@ -649,6 +649,27 @@ const MEETINGS = [
   {id:401,date:"2026-06-22",client:"Ramp",pg:"EP",office:"House Financial Services Committee (HFSC) Majority Staff",             chamber:"House", party:"R",govStaff:"Nick Rockwell; Allison Behuniak; Ben Johnson",    govEmails:"nick.rockwell@mail.house.gov; allison.behuniak@mail.house.gov; johnson@mail.house.gov"},
   {id:402,date:"2026-06-25",client:"Ramp",pg:"EP",office:"House Majority Whip Tom Emmer (R-MN)",                                 chamber:"House", party:"R",govStaff:"Ian Foley",                                        govEmails:"ian.foley@mail.house.gov"},
   {id:403,date:"2026-06-25",client:"Ramp",pg:"EP",office:"Senate Banking Committee (SBC) Chair Joni Ernst (R-IA)",               chamber:"Senate",party:"R",govStaff:"Meredith West; Riley Jergens; Sloan Hamill",      govEmails:"meredith_west@sbc.senate.gov; Riley_Jergens@sbc.senate.gov; Sloan_Hamill@sbc.senate.gov"},
+  {id:404,date:"2026-06-30",client:"Kraken",pg:"EP",office:"Sen. Ron Wyden (D-OR)",chamber:"Senate",party:"D",govStaff:"Alex Bertschiwrigley",govEmails:"alex_bertschiwrigley@wyden.senate.gov"},
+  {id:405,date:"2026-06-30",client:"Kraken",pg:"EP",office:"Sen. Catherine Cortez Masto (D-NV)",chamber:"Senate",party:"D",govStaff:"Gaites Layton",govEmails:"gaites_layton@cortezmasto.senate.gov"},
+  {id:406,date:"2026-07-01",client:"Kraken",pg:"EP",office:"Sen. Ruben Gallego (D-AZ)",chamber:"Senate",party:"D",govStaff:"Maia Leeds",govEmails:"maia_leeds@gallego.senate.gov"},
+  {id:407,date:"2026-07-01",client:"Kraken",pg:"EP",office:"Sen. John Hickenlooper (D-CO)",chamber:"Senate",party:"D",govStaff:"Lucas Siegmund",govEmails:"lucas_siegmund@hickenlooper.senate.gov"},
+  {id:408,date:"2026-07-01",client:"Kraken",pg:"EP",office:"Sen. Elissa Slotkin (D-MI)",chamber:"Senate",party:"D",govStaff:"Brooke Wood; Elisabeth Coats",govEmails:"brooke_wood@slotkin.senate.gov; elisabeth_coats@slotkin.senate.gov"},
+  {id:409,date:"2026-07-02",client:"Kraken",pg:"EP",office:"Sen. John Fetterman (D-PA)",chamber:"Senate",party:"D",govStaff:"Matthew Allen",govEmails:"matthew_allen@fetterman.senate.gov"},
+  {id:410,date:"2026-06-24",client:"Pudgy Penguins",pg:"EP",office:"House Committee on Small Business",chamber:"House",party:"R",govStaff:"Grace Tricomi; Nicholle Vo; Madalyn Rusenko; Shane Benko",govEmails:"Grace.Tricomi@mail.house.gov; Nicholle.Vo@mail.house.gov; Madalyn.Rusenko@mail.house.gov; Shane.Benko@mail.house.gov"},
+  {id:411,date:"2026-06-30",client:"Circle",    pg:"EP",office:"Senate Finance Committee (Majority Staff)",       chamber:"Senate",party:"R",govStaff:"Michael Gould; Eric Oman",                               govEmails:"Michael_Gould@finance.senate.gov; Eric_Oman@finance.senate.gov"},
+  {id:412,date:"2026-07-01",client:"Apple Pay", pg:"EP",office:"Senate Banking Committee (SBC) Majority Staff",  chamber:"Senate",party:"R",govStaff:"Kathleen Gayle; Ammon Simon; Brian Montesinos",           govEmails:"kathleen_gayle@banking.senate.gov; ammon_simon@banking.senate.gov; brian_montesinos@banking.senate.gov"},
+  {id:413,date:"2026-06-24",client:"Ramp",pg:"EP",office:"Sen. Bill Hagerty (R-TN)",                                     chamber:"Senate",party:"R",govStaff:"Matt Venoit",                                           govEmails:"matt_venoit@hagerty.senate.gov"},
+  {id:414,date:"2026-06-24",client:"Ramp",pg:"EP",office:"Rep. Sara Jacobs (D-CA)",                                      chamber:"House", party:"D",govStaff:"Brandon Mendoza; Shinnola Alexander",                  govEmails:"brandon.mendoza@mail.house.gov; shinnola.alexander2@mail.house.gov"},
+  {id:415,date:"2026-06-24",client:"Ramp",pg:"EP",office:"Rep. Lori Trahan (D-MA)",                                      chamber:"House", party:"D",govStaff:"Dylan Irlbeck; Matthew McMillan",                     govEmails:"dylan.irlbeck@mail.house.gov; matthew.mcmillan@mail.house.gov"},
+  {id:416,date:"2026-06-24",client:"Ramp",pg:"EP",office:"Rep. Ted Lieu (D-CA)",                                         chamber:"House", party:"D",govStaff:"Anisa Alazraie; Anisha Lingden",                      govEmails:"anisa.alazraie@mail.house.gov; anisha.lingden@mail.house.gov"},
+  {id:417,date:"2026-06-25",client:"Ramp",pg:"EP",office:"Senate Banking Committee (SBC) Majority Staff",                 chamber:"Senate",party:"R",govStaff:"Allison Schwartz; Audra Kinney; Kathleen Gayle; Chrismon Clark",govEmails:"allison_schwartz@banking.senate.gov; audra_kinney@banking.senate.gov; kathleen_gayle@banking.senate.gov; Chrismon_Clark@banking.senate.gov"},
+  {id:418,date:"2026-06-30",client:"Apple Pay",pg:"EP",office:"Sen. Mark Warner (D-VA)",                                chamber:"Senate",party:"D",govStaff:"Nicholas Larsen",                                           govEmails:"nicholas_larsen@warner.senate.gov"},
+  {id:419,date:"2026-06-30",client:"Apple Pay",pg:"EP",office:"Rep. Bill Foster (D-IL)",                                chamber:"House", party:"D",govStaff:"",                                                           govEmails:""},
+  {id:420,date:"2026-06-30",client:"Affirm",   pg:"EP",office:"House Future Forum Democratic Caucus",                   chamber:"House", party:"D",govStaff:"Victoria Houghtalen",                                      govEmails:"victoria.houghtalen@mail.house.gov"},
+  {id:421,date:"2026-07-01",client:"Apple Pay",pg:"EP",office:"House Oversight Committee (Minority Staff)",              chamber:"House", party:"D",govStaff:"Mark Stephenson; Graham Harwood",                          govEmails:"mark.stephenson@mail.house.gov; graham.harwood@mail.house.gov"},
+  {id:422,date:"2026-07-01",client:"Apple Pay",pg:"EP",office:"House Oversight Committee (Majority Staff)",              chamber:"House", party:"R",govStaff:"Mark Marin; Jennifer Kamara; Bill Womack",                  govEmails:"mark.marin@mail.house.gov; jennifer.kamara@mail.house.gov; Bill.Womack@mail.house.gov"},
+  {id:423,date:"2026-07-01",client:"Apple Pay",pg:"EP",office:"Rep. Pete Sessions (R-TX)",                              chamber:"House", party:"R",govStaff:"Talya Somers",                                             govEmails:"talya.somers@mail.house.gov"},
+  {id:424,date:"2026-07-14",client:"Swiss Re",pg:"EP",office:"Sen. Chris Murphy (D-CT)",chamber:"Senate",party:"D",govStaff:"Bowen Peard; Ryan Walsh",govEmails:"Bowen_Peard@murphy.senate.gov; Ryan_Walsh@murphy.senate.gov"},
 ];
 
 const CLIENTS = [
